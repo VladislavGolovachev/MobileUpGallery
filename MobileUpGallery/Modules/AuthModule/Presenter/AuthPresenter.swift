@@ -12,9 +12,15 @@ protocol AuthViewProtocol: AnyObject {
 }
 
 protocol AuthViewPresenterProtocol: AnyObject {
-    
+    init(view: AuthViewProtocol, router: RouterProtocol)
 }
 
 final class AuthPresenter: AuthViewPresenterProtocol {
     weak var view: AuthViewProtocol?
+    var router: RouterProtocol?
+    
+    init(view: AuthViewProtocol, router: RouterProtocol) {
+        self.view = view
+        self.router = router
+    }
 }

@@ -14,6 +14,8 @@
 		827646132C7528E00075C31E /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827646122C7528E00075C31E /* MainPresenter.swift */; };
 		827646152C7528E90075C31E /* PhotoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827646142C7528E90075C31E /* PhotoPresenter.swift */; };
 		827646172C7528F30075C31E /* VideoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827646162C7528F30075C31E /* VideoPresenter.swift */; };
+		827646192C752DF20075C31E /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827646182C752DF20075C31E /* Router.swift */; };
+		8276461B2C75358A0075C31E /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276461A2C75358A0075C31E /* ModuleBuilder.swift */; };
 		82C9A1DB2C749DA400D59A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C9A1DA2C749DA400D59A8E /* AppDelegate.swift */; };
 		82C9A1DD2C749DA400D59A8E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C9A1DC2C749DA400D59A8E /* SceneDelegate.swift */; };
 		82C9A1DF2C749DA400D59A8E /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C9A1DE2C749DA400D59A8E /* AuthViewController.swift */; };
@@ -30,6 +32,8 @@
 		827646122C7528E00075C31E /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		827646142C7528E90075C31E /* PhotoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPresenter.swift; sourceTree = "<group>"; };
 		827646162C7528F30075C31E /* VideoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPresenter.swift; sourceTree = "<group>"; };
+		827646182C752DF20075C31E /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		8276461A2C75358A0075C31E /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 		82C9A1D72C749DA400D59A8E /* MobileUpGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileUpGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82C9A1DA2C749DA400D59A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82C9A1DC2C749DA400D59A8E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 			children = (
 				82C9A1DA2C749DA400D59A8E /* AppDelegate.swift */,
 				82C9A1DC2C749DA400D59A8E /* SceneDelegate.swift */,
+				827646182C752DF20075C31E /* Router.swift */,
+				8276461A2C75358A0075C31E /* ModuleBuilder.swift */,
 				827645FB2C7526A60075C31E /* Modules */,
 				82C9A1E32C749DA800D59A8E /* Assets.xcassets */,
 				82C9A1E52C749DA800D59A8E /* LaunchScreen.storyboard */,
@@ -263,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				827646192C752DF20075C31E /* Router.swift in Sources */,
 				827646172C7528F30075C31E /* VideoPresenter.swift in Sources */,
 				82C9A1DF2C749DA400D59A8E /* AuthViewController.swift in Sources */,
 				827646112C7528D50075C31E /* AuthPresenter.swift in Sources */,
@@ -273,6 +280,7 @@
 				8276460B2C75284E0075C31E /* MainViewController.swift in Sources */,
 				8276460D2C7528760075C31E /* PhotoViewController.swift in Sources */,
 				827646152C7528E90075C31E /* PhotoPresenter.swift in Sources */,
+				8276461B2C75358A0075C31E /* ModuleBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

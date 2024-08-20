@@ -12,9 +12,15 @@ protocol VideoViewProtocol: AnyObject {
 }
 
 protocol VideoViewPresenterProtocol: AnyObject {
-    
+    init(view: VideoViewProtocol, router: RouterProtocol)
 }
 
 final class VideoPresenter: VideoViewPresenterProtocol {
     weak var view: VideoViewProtocol?
+    var router: RouterProtocol?
+    
+    init(view: VideoViewProtocol, router: RouterProtocol) {
+        self.view = view
+        self.router = router
+    }
 }

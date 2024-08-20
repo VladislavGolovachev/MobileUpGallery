@@ -12,9 +12,15 @@ protocol PhotoViewProtocol: AnyObject {
 }
 
 protocol PhotoViewPresenterProtocol: AnyObject {
-    
+    init(view: PhotoViewProtocol, router: RouterProtocol)
 }
 
 final class PhotoPresenter: PhotoViewPresenterProtocol {
     weak var view: PhotoViewProtocol?
+    var router: RouterProtocol?
+    
+    init(view: PhotoViewProtocol, router: RouterProtocol) {
+        self.view = view
+        self.router = router
+    }
 }

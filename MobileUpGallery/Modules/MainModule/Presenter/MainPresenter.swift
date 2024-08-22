@@ -13,6 +13,7 @@ protocol MainViewProtocol: AnyObject {
 
 protocol MainViewPresenterProtocol: AnyObject {
     init(view: MainViewProtocol, router: RouterProtocol)
+    func returnToAuthScreen()
 }
 
 final class MainPresenter: MainViewPresenterProtocol {
@@ -22,5 +23,9 @@ final class MainPresenter: MainViewPresenterProtocol {
     init(view: MainViewProtocol, router: RouterProtocol) {
         self.view = view
         self.router = router
+    }
+    
+    func returnToAuthScreen() {
+        router?.popToRootViewController()
     }
 }

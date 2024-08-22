@@ -13,6 +13,7 @@ protocol PhotoViewProtocol: AnyObject {
 
 protocol PhotoViewPresenterProtocol: AnyObject {
     init(view: PhotoViewProtocol, router: RouterProtocol)
+    func goToPreviousScreen()
 }
 
 final class PhotoPresenter: PhotoViewPresenterProtocol {
@@ -22,5 +23,9 @@ final class PhotoPresenter: PhotoViewPresenterProtocol {
     init(view: PhotoViewProtocol, router: RouterProtocol) {
         self.view = view
         self.router = router
+    }
+    
+    func goToPreviousScreen() {
+        router?.popToPreviousViewController()
     }
 }

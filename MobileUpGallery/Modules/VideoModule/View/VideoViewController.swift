@@ -62,7 +62,10 @@ extension VideoViewController {
 //MARK: Actions
 extension VideoViewController {
     @objc func shareButtonAction(_ sender: UIBarButtonItem) {
-        print("share")
+        let shareSheet = UIActivityViewController(activityItems: [URL(string: "https://www.youtube.com/watch?v=M-OdGpeAqQQ")!],
+                                                  applicationActivities: nil)
+        shareSheet.excludedActivityTypes = [.print, .assignToContact]
+        present(shareSheet, animated: true)
     }
     
     @objc func backButtonAction(_ sender: UIBarButtonItem) {

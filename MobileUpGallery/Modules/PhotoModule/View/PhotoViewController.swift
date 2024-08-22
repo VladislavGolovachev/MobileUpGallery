@@ -58,7 +58,10 @@ extension PhotoViewController {
 //MARK: Actions
 extension PhotoViewController {
     @objc func shareButtonAction(_ sender: UIBarButtonItem) {
-        print("share")
+        let shareSheet = UIActivityViewController(activityItems: [UIImage(systemName: "bell")],
+                                                  applicationActivities: nil)
+        shareSheet.excludedActivityTypes = [.print, .assignToContact]
+        present(shareSheet, animated: true)
     }
     
     @objc func backButtonAction(_ sender: UIBarButtonItem) {

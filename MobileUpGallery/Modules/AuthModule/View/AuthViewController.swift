@@ -11,7 +11,7 @@ final class AuthViewController: UIViewController {
     
     var presenter: AuthViewPresenterProtocol?
     
-    lazy var appNameLabel: UILabel = {
+    let appNameLabel: UILabel = {
         let label = PaddingLabel(topInset: 10, leftInset: 24, bottomInset: 10, rightInset: 24)
         label.text = "Mobile Up\nGallery"
         label.textColor = .black

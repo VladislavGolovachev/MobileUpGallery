@@ -15,6 +15,7 @@ protocol RouterProtocol {
     func goToPhotoViewController()
     func goToVideoViewController()
     func popToRootViewController()
+    func popToPreviousViewController()
 }
 
 final class Router: RouterProtocol {
@@ -53,5 +54,9 @@ final class Router: RouterProtocol {
     
     func popToRootViewController() {
         navigationController.popToRootViewController(animated: true)
+    }
+    
+    func popToPreviousViewController() {
+        navigationController.popViewController(animated: true)
     }
 }

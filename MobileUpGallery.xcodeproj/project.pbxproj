@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8276460B2C75284E0075C31E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276460A2C75284E0075C31E /* MainViewController.swift */; };
 		8276460D2C7528760075C31E /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276460C2C7528760075C31E /* PhotoViewController.swift */; };
 		8276460F2C7528820075C31E /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276460E2C7528820075C31E /* VideoViewController.swift */; };
 		827646112C7528D50075C31E /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827646102C7528D50075C31E /* AuthPresenter.swift */; };
@@ -23,10 +22,14 @@
 		82C9A1E72C749DA800D59A8E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 82C9A1E62C749DA800D59A8E /* Base */; };
 		82C9A1EF2C74A0EA00D59A8E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 82C9A1EE2C74A0EA00D59A8E /* .gitignore */; };
 		82D238852C7605E50062DCA6 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238842C7605E50062DCA6 /* PaddingLabel.swift */; };
+		82D238A62C7762820062DCA6 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238A52C7762820062DCA6 /* VideoCollectionViewCell.swift */; };
+		82D238A82C77628F0062DCA6 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238A72C77628F0062DCA6 /* PhotoCollectionViewCell.swift */; };
+		82D238AA2C7762A20062DCA6 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238A92C7762A20062DCA6 /* CustomSegmentedControl.swift */; };
+		82D238AC2C7763050062DCA6 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238AB2C7763050062DCA6 /* WebViewController.swift */; };
+		82D238AE2C77682E0062DCA6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238AD2C77682E0062DCA6 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8276460A2C75284E0075C31E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8276460C2C7528760075C31E /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		8276460E2C7528820075C31E /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		827646102C7528D50075C31E /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -44,6 +47,11 @@
 		82C9A1E82C749DA800D59A8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82C9A1EE2C74A0EA00D59A8E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		82D238842C7605E50062DCA6 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		82D238A52C7762820062DCA6 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		82D238A72C77628F0062DCA6 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		82D238A92C7762A20062DCA6 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		82D238AB2C7763050062DCA6 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		82D238AD2C77682E0062DCA6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				82C9A1DE2C749DA400D59A8E /* AuthViewController.swift */,
+				82D238AB2C7763050062DCA6 /* WebViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,7 +140,10 @@
 		827646042C75279A0075C31E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8276460A2C75284E0075C31E /* MainViewController.swift */,
+				82D238AD2C77682E0062DCA6 /* MainViewController.swift */,
+				82D238A72C77628F0062DCA6 /* PhotoCollectionViewCell.swift */,
+				82D238A52C7762820062DCA6 /* VideoCollectionViewCell.swift */,
+				82D238A92C7762A20062DCA6 /* CustomSegmentedControl.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -288,19 +300,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82D238A62C7762820062DCA6 /* VideoCollectionViewCell.swift in Sources */,
 				827646192C752DF20075C31E /* Router.swift in Sources */,
 				827646172C7528F30075C31E /* VideoPresenter.swift in Sources */,
 				82C9A1DF2C749DA400D59A8E /* AuthViewController.swift in Sources */,
 				827646112C7528D50075C31E /* AuthPresenter.swift in Sources */,
 				82C9A1DB2C749DA400D59A8E /* AppDelegate.swift in Sources */,
 				827646132C7528E00075C31E /* MainPresenter.swift in Sources */,
+				82D238AE2C77682E0062DCA6 /* MainViewController.swift in Sources */,
 				8276460F2C7528820075C31E /* VideoViewController.swift in Sources */,
 				82C9A1DD2C749DA400D59A8E /* SceneDelegate.swift in Sources */,
-				8276460B2C75284E0075C31E /* MainViewController.swift in Sources */,
 				82D238852C7605E50062DCA6 /* PaddingLabel.swift in Sources */,
+				82D238A82C77628F0062DCA6 /* PhotoCollectionViewCell.swift in Sources */,
+				82D238AC2C7763050062DCA6 /* WebViewController.swift in Sources */,
 				8276460D2C7528760075C31E /* PhotoViewController.swift in Sources */,
 				827646152C7528E90075C31E /* PhotoPresenter.swift in Sources */,
 				8276461B2C75358A0075C31E /* ModuleBuilder.swift in Sources */,
+				82D238AA2C7762A20062DCA6 /* CustomSegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

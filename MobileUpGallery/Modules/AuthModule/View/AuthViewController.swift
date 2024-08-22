@@ -14,6 +14,7 @@ final class AuthViewController: UIViewController {
     lazy var appNameLabel: UILabel = {
         let label = PaddingLabel(topInset: 10, leftInset: 24, bottomInset: 10, rightInset: 24)
         label.text = "Mobile Up\nGallery"
+        label.textColor = .black
         label.font = .systemFont(ofSize: 44, weight: .bold)
         label.numberOfLines = 2
         
@@ -36,10 +37,11 @@ final class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
+        view.backgroundColor = .white
         view.addSubview(authButton)
         view.addSubview(appNameLabel)
+        
         setupConstraints()
     }
 }
@@ -47,23 +49,27 @@ final class AuthViewController: UIViewController {
 //MARK: Private functions
 extension AuthViewController {
     private func setupConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
         authButton.translatesAutoresizingMaskIntoConstraints = false
         appNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             appNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
-            appNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            appNameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            appNameLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            appNameLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-            authButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -42),
-            authButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            authButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            authButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -8),
+            authButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            authButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             authButton.heightAnchor.constraint(equalToConstant: 52)
         ])
     }
-    
-    @objc private func authButtonAction(_ sender: UIButton) {
-        print("Button was tapped")
+}
+
+//MARK: Actions
+extension AuthViewController {
+    @objc func authButtonAction(_ sender: UIButton) {
+        presenter?.showLoginWebPage()
     }
 }
 

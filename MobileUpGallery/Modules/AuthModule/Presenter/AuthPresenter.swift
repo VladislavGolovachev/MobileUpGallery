@@ -8,11 +8,11 @@
 import Foundation
 
 protocol AuthViewProtocol: AnyObject {
-    
 }
 
 protocol AuthViewPresenterProtocol: AnyObject {
     init(view: AuthViewProtocol, router: RouterProtocol)
+    func showLoginWebPage()
 }
 
 final class AuthPresenter: AuthViewPresenterProtocol {
@@ -22,5 +22,10 @@ final class AuthPresenter: AuthViewPresenterProtocol {
     init(view: AuthViewProtocol, router: RouterProtocol) {
         self.view = view
         self.router = router
+    }
+    
+    func showLoginWebPage() {
+        router?.goToMainViewController()
+//        router?.showWebViewController()
     }
 }

@@ -28,7 +28,7 @@ final class MainPresenter: MainViewPresenterProtocol {
     }
     
     func returnToAuthScreen() {
-        router?.popToRootViewController()
+        router?.popToPreviousViewController()
     }
     
     func showPhotoScreen() {

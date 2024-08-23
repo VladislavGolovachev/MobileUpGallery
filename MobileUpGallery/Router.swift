@@ -8,55 +8,55 @@
 import UIKit
 
 protocol RouterProtocol {
-    init(navigationController: UINavigationController, moduleBuilder: ModuleBuilderProtocol)
-    func initiateRootViewController()
+    init(moduleBuilder: ModuleBuilderProtocol)
     func showWebViewController()
     func goToMainViewController()
     func goToPhotoViewController()
     func goToVideoViewController()
-    func popToRootViewController()
     func popToPreviousViewController()
 }
 
 final class Router: RouterProtocol {
-    var navigationController: UINavigationController
     var moduleBuilder: ModuleBuilderProtocol
-    
-    init(navigationController: UINavigationController, moduleBuilder: ModuleBuilderProtocol) {
-        self.navigationController = navigationController
-        self.moduleBuilder = moduleBuilder
+    lazy var rootViewController: UIViewController = {
+        return moduleBuilder.createAuthModule(router: self)
+    }()
+    var navigationController: UINavigationController? {
+        return rootViewController.presentedViewController as? UINavigationController
     }
     
-    func initiateRootViewController() {
-        let authVC = moduleBuilder.createAuthModule(router: self)
-        navigationController.viewControllers = [authVC]
+    init(moduleBuilder: ModuleBuilderProtocol) {
+        self.moduleBuilder = moduleBuilder
     }
     
     func showWebViewController() {
         let webVC = moduleBuilder.createWebModule(router: self)
-        navigationController.viewControllers.first?.present(webVC, animated: true)
+        rootViewController.present(webVC, animated: true)
     }
     
     func goToMainViewController() {
         let mainVC = moduleBuilder.createMainModule(router: self)
-        navigationController.pushViewController(mainVC, animated: true)
+        let navVC = UINavigationController(rootViewController: mainVC)
+        navVC.modalPresentationStyle = .fullScreen
+        navVC.modalTransitionStyle = .coverVertical
+        rootViewController.present(navVC, animated: true)
     }
     
     func goToPhotoViewController() {
         let photoVC = moduleBuilder.createPhotoModule(router: self)
-        navigationController.pushViewController(photoVC, animated: true)
+        navigationController?.pushViewController(photoVC, animated: true)
     }
     
     func goToVideoViewController() {
         let videoVC = moduleBuilder.createVideoModule(router: self)
-        navigationController.pushViewController(videoVC, animated: true)
-    }
-    
-    func popToRootViewController() {
-        navigationController.popToRootViewController(animated: true)
+        navigationController?.pushViewController(videoVC, animated: true)
     }
     
     func popToPreviousViewController() {
-        navigationController.popViewController(animated: true)
+        if let count = navigationController?.viewControllers.count, count == 1 {
+            navigationController?.dismiss(animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
 }

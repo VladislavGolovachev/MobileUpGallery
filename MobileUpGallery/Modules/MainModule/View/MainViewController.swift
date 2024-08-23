@@ -77,8 +77,6 @@ extension MainViewController {
     }
     
     private func customizeNavigationBar() {
-        navigationItem.setHidesBackButton(true, animated: false)
-        
         navigationItem.title = "MobileUp Gallery"
         navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 17, weight: .semibold)]
         

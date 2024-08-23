@@ -10,30 +10,18 @@ import WebKit
 
 class WebViewController: UIViewController {
     
+    var presenter: WebViewPresenterProtocol?
     let webView = WKWebView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let url = URL(string: """
-                         https://oauth.vk.com/authorize?\
-                         client_id=51793431&\
-                         display=mobile&\
-                         redirect_uri=https://oauth.vk.com/blank.html&\
-                         scope=20&\
-                         response_type=token&\
-                         v=5.199
-                         """) {
-            webView.load(URLRequest(url: url))
-        }
         webView.navigationDelegate = self
-    
-//    https://mobileupgallerytest.ru/auth#
-//        access_token=vk1.a&
-//        expires_in=86400&
-//        user_id=234488898
         view.addSubview(webView)
         setupConstraints()
+        
+        guard let urlRequest = NetworkService.shared.authRequest() else {return}
+        webView.load(urlRequest)
     }
 }
 
@@ -51,26 +39,17 @@ extension WebViewController {
     }
 }
 
+//MARK: WKNavigationDelegate
 extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, 
                  decidePolicyFor navigationResponse: WKNavigationResponse,
                  decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        guard let url = navigationResponse.response.url,
-        let fragment = URLComponents(url: url, resolvingAgainstBaseURL: true)?.fragment else {
-            decisionHandler(.allow)
-            return
-        }
-        
-        var urlComponents = URLComponents()
-        urlComponents.query = fragment
-        guard let queryItems = urlComponents.queryItems else {return}
-        
-        for queryItem in queryItems {
-            if let value = queryItem.value {
-                print(queryItem.name, value)
-            }
-        }
-        
+        presenter?.extractAccessToken(by: navigationResponse.response)
         decisionHandler(.allow)
     }
+}
+
+//MARK: WebViewPresenterProtocol
+extension WebViewController: WebViewProtocol {
+    
 }

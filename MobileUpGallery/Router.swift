@@ -33,7 +33,7 @@ final class Router: RouterProtocol {
     }
     
     func showWebViewController() {
-        let webVC = WebViewController()
+        let webVC = moduleBuilder.createWebModule(router: self)
         navigationController.viewControllers.first?.present(webVC, animated: true)
     }
     

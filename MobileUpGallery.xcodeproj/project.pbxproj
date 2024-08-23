@@ -15,6 +15,10 @@
 		827646172C7528F30075C31E /* VideoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827646162C7528F30075C31E /* VideoPresenter.swift */; };
 		827646192C752DF20075C31E /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827646182C752DF20075C31E /* Router.swift */; };
 		8276461B2C75358A0075C31E /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276461A2C75358A0075C31E /* ModuleBuilder.swift */; };
+		8289F9A62C78AB6F00A6993E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F9A52C78AB6F00A6993E /* NetworkService.swift */; };
+		8289F9AB2C78AC8C00A6993E /* WebPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F9AA2C78AC8C00A6993E /* WebPresenter.swift */; };
+		8289F9B82C78C4B300A6993E /* VKRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F9B72C78C4B200A6993E /* VKRequest.swift */; };
+		8289F9BE2C78FE1100A6993E /* VKURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F9BD2C78FE1100A6993E /* VKURL.swift */; };
 		82C9A1DB2C749DA400D59A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C9A1DA2C749DA400D59A8E /* AppDelegate.swift */; };
 		82C9A1DD2C749DA400D59A8E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C9A1DC2C749DA400D59A8E /* SceneDelegate.swift */; };
 		82C9A1DF2C749DA400D59A8E /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C9A1DE2C749DA400D59A8E /* AuthViewController.swift */; };
@@ -38,6 +42,10 @@
 		827646162C7528F30075C31E /* VideoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPresenter.swift; sourceTree = "<group>"; };
 		827646182C752DF20075C31E /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8276461A2C75358A0075C31E /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
+		8289F9A52C78AB6F00A6993E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		8289F9AA2C78AC8C00A6993E /* WebPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPresenter.swift; sourceTree = "<group>"; };
+		8289F9B72C78C4B200A6993E /* VKRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKRequest.swift; sourceTree = "<group>"; };
+		8289F9BD2C78FE1100A6993E /* VKURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKURL.swift; sourceTree = "<group>"; };
 		82C9A1D72C749DA400D59A8E /* MobileUpGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileUpGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82C9A1DA2C749DA400D59A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82C9A1DC2C749DA400D59A8E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				827645FC2C7526E40075C31E /* AuthModule */,
+				8289F9A72C78AC4800A6993E /* WebModule */,
 				827645FD2C7526EE0075C31E /* MainModule */,
 				827645FE2C7526F40075C31E /* PhotoModule */,
 				827645FF2C7526FA0075C31E /* VideoModule */,
@@ -116,7 +125,6 @@
 			isa = PBXGroup;
 			children = (
 				82C9A1DE2C749DA400D59A8E /* AuthViewController.swift */,
-				82D238AB2C7763050062DCA6 /* WebViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +188,41 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8289F9A42C78AB1000A6993E /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				8289F9A52C78AB6F00A6993E /* NetworkService.swift */,
+				8289F9B72C78C4B200A6993E /* VKRequest.swift */,
+				8289F9BD2C78FE1100A6993E /* VKURL.swift */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
+		8289F9A72C78AC4800A6993E /* WebModule */ = {
+			isa = PBXGroup;
+			children = (
+				8289F9A82C78AC5600A6993E /* View */,
+				8289F9A92C78AC5A00A6993E /* Presenter */,
+			);
+			path = WebModule;
+			sourceTree = "<group>";
+		};
+		8289F9A82C78AC5600A6993E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				82D238AB2C7763050062DCA6 /* WebViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8289F9A92C78AC5A00A6993E /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8289F9AA2C78AC8C00A6993E /* WebPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		82C9A1CE2C749DA400D59A8E = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +247,7 @@
 				82C9A1DC2C749DA400D59A8E /* SceneDelegate.swift */,
 				827646182C752DF20075C31E /* Router.swift */,
 				8276461A2C75358A0075C31E /* ModuleBuilder.swift */,
+				8289F9A42C78AB1000A6993E /* NetworkLayer */,
 				827645FB2C7526A60075C31E /* Modules */,
 				82D238862C7609E50062DCA6 /* Other */,
 				82C9A1E52C749DA800D59A8E /* LaunchScreen.storyboard */,
@@ -304,8 +348,10 @@
 				827646192C752DF20075C31E /* Router.swift in Sources */,
 				827646172C7528F30075C31E /* VideoPresenter.swift in Sources */,
 				82C9A1DF2C749DA400D59A8E /* AuthViewController.swift in Sources */,
+				8289F9A62C78AB6F00A6993E /* NetworkService.swift in Sources */,
 				827646112C7528D50075C31E /* AuthPresenter.swift in Sources */,
 				82C9A1DB2C749DA400D59A8E /* AppDelegate.swift in Sources */,
+				8289F9AB2C78AC8C00A6993E /* WebPresenter.swift in Sources */,
 				827646132C7528E00075C31E /* MainPresenter.swift in Sources */,
 				82D238AE2C77682E0062DCA6 /* MainViewController.swift in Sources */,
 				8276460F2C7528820075C31E /* VideoViewController.swift in Sources */,
@@ -314,6 +360,8 @@
 				82D238A82C77628F0062DCA6 /* PhotoCollectionViewCell.swift in Sources */,
 				82D238AC2C7763050062DCA6 /* WebViewController.swift in Sources */,
 				8276460D2C7528760075C31E /* PhotoViewController.swift in Sources */,
+				8289F9BE2C78FE1100A6993E /* VKURL.swift in Sources */,
+				8289F9B82C78C4B300A6993E /* VKRequest.swift in Sources */,
 				827646152C7528E90075C31E /* PhotoPresenter.swift in Sources */,
 				8276461B2C75358A0075C31E /* ModuleBuilder.swift in Sources */,
 				82D238AA2C7762A20062DCA6 /* CustomSegmentedControl.swift in Sources */,

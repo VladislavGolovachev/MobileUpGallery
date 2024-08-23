@@ -9,6 +9,7 @@ import UIKit
 
 protocol ModuleBuilderProtocol {
     func createAuthModule(router: RouterProtocol) -> UIViewController
+    func createWebModule(router: RouterProtocol) -> UIViewController
     func createMainModule(router: RouterProtocol) -> UIViewController
     func createPhotoModule(router: RouterProtocol) -> UIViewController
     func createVideoModule(router: RouterProtocol) -> UIViewController
@@ -18,6 +19,14 @@ final class ModuleBuilder: ModuleBuilderProtocol {
     func createAuthModule(router: RouterProtocol) -> UIViewController {
         let vc = AuthViewController()
         let presenter = AuthPresenter(view: vc, router: router)
+        vc.presenter = presenter
+        
+        return vc
+    }
+    
+    func createWebModule(router: RouterProtocol) -> UIViewController {
+        let vc = WebViewController()
+        let presenter = WebPresenter(view: vc, router: router)
         vc.presenter = presenter
         
         return vc

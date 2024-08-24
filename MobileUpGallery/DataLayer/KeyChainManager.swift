@@ -18,7 +18,7 @@ protocol AccessTokenStorage {
     func addToken(_ accessToken: String, label: String) throws
     func removeToken(label: String) throws
     func updateToken(_ accessToken: String, label: String) throws
-    func getToken(label: String) throws -> AccessToken?
+    func token(forLabel label: String) throws -> AccessToken?
 }
 
 final class SecureStorageManager: KeychainManagerProtocol {
@@ -108,7 +108,7 @@ extension SecureStorageManager: AccessTokenStorage {
         }
     }
     
-    func getToken(label: String) throws -> AccessToken? {
+    func token(forLabel label: String) throws -> AccessToken? {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrLabel: label,

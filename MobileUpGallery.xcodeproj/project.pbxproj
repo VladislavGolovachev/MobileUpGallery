@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8230A59C2C79F68100C92578 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A59B2C79F68100C92578 /* CacheManager.swift */; };
+		8230A59E2C7A011600C92578 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A59D2C7A011600C92578 /* DataManager.swift */; };
+		8230A5A12C7A077100C92578 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5A02C7A077100C92578 /* PhotoModel.swift */; };
+		8230A5A42C7A1C3F00C92578 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5A32C7A1C3F00C92578 /* VideoModel.swift */; };
+		8230A5A92C7A2A5F00C92578 /* PhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5A82C7A2A5F00C92578 /* PhotosResponse.swift */; };
+		8230A5AB2C7A2E0D00C92578 /* VideoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5AA2C7A2E0D00C92578 /* VideoResponse.swift */; };
 		8276460D2C7528760075C31E /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276460C2C7528760075C31E /* PhotoViewController.swift */; };
 		8276460F2C7528820075C31E /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276460E2C7528820075C31E /* VideoViewController.swift */; };
 		827646112C7528D50075C31E /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827646102C7528D50075C31E /* AuthPresenter.swift */; };
@@ -35,6 +41,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8230A59B2C79F68100C92578 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		8230A59D2C7A011600C92578 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		8230A5A02C7A077100C92578 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		8230A5A32C7A1C3F00C92578 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
+		8230A5A82C7A2A5F00C92578 /* PhotosResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosResponse.swift; sourceTree = "<group>"; };
+		8230A5AA2C7A2E0D00C92578 /* VideoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoResponse.swift; sourceTree = "<group>"; };
 		8276460C2C7528760075C31E /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		8276460E2C7528820075C31E /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		827646102C7528D50075C31E /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -75,6 +87,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8230A59F2C7A076200C92578 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8230A5A02C7A077100C92578 /* PhotoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8230A5A22C7A1C3100C92578 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8230A5A32C7A1C3F00C92578 /* VideoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8230A5A72C7A2A3A00C92578 /* VKResponses */ = {
+			isa = PBXGroup;
+			children = (
+				8230A5A82C7A2A5F00C92578 /* PhotosResponse.swift */,
+				8230A5AA2C7A2E0D00C92578 /* VideoResponse.swift */,
+			);
+			path = VKResponses;
+			sourceTree = "<group>";
+		};
 		827645FB2C7526A60075C31E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +145,7 @@
 		827645FE2C7526F40075C31E /* PhotoModule */ = {
 			isa = PBXGroup;
 			children = (
+				8230A59F2C7A076200C92578 /* Model */,
 				827646072C7527AD0075C31E /* View */,
 				827646062C7527A60075C31E /* Presenter */,
 			);
@@ -117,6 +155,7 @@
 		827645FF2C7526FA0075C31E /* VideoModule */ = {
 			isa = PBXGroup;
 			children = (
+				8230A5A22C7A1C3100C92578 /* Model */,
 				827646092C7527B90075C31E /* View */,
 				827646082C7527B30075C31E /* Presenter */,
 			);
@@ -196,6 +235,7 @@
 				8289F9A52C78AB6F00A6993E /* NetworkService.swift */,
 				8289F9B72C78C4B200A6993E /* VKRequest.swift */,
 				8289F9BD2C78FE1100A6993E /* VKURL.swift */,
+				8230A5A72C7A2A3A00C92578 /* VKResponses */,
 			);
 			path = NetworkLayer;
 			sourceTree = "<group>";
@@ -229,6 +269,8 @@
 			isa = PBXGroup;
 			children = (
 				8289F9C02C79217F00A6993E /* KeyChainManager.swift */,
+				8230A59B2C79F68100C92578 /* CacheManager.swift */,
+				8230A59D2C7A011600C92578 /* DataManager.swift */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -356,11 +398,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				82D238A62C7762820062DCA6 /* VideoCollectionViewCell.swift in Sources */,
+				8230A59E2C7A011600C92578 /* DataManager.swift in Sources */,
 				827646192C752DF20075C31E /* Router.swift in Sources */,
 				827646172C7528F30075C31E /* VideoPresenter.swift in Sources */,
 				82C9A1DF2C749DA400D59A8E /* AuthViewController.swift in Sources */,
+				8230A5AB2C7A2E0D00C92578 /* VideoResponse.swift in Sources */,
 				8289F9A62C78AB6F00A6993E /* NetworkService.swift in Sources */,
 				827646112C7528D50075C31E /* AuthPresenter.swift in Sources */,
+				8230A59C2C79F68100C92578 /* CacheManager.swift in Sources */,
 				82C9A1DB2C749DA400D59A8E /* AppDelegate.swift in Sources */,
 				8289F9AB2C78AC8C00A6993E /* WebPresenter.swift in Sources */,
 				827646132C7528E00075C31E /* MainPresenter.swift in Sources */,
@@ -371,11 +416,14 @@
 				82D238852C7605E50062DCA6 /* PaddingLabel.swift in Sources */,
 				82D238A82C77628F0062DCA6 /* PhotoCollectionViewCell.swift in Sources */,
 				82D238AC2C7763050062DCA6 /* WebViewController.swift in Sources */,
+				8230A5A92C7A2A5F00C92578 /* PhotosResponse.swift in Sources */,
 				8276460D2C7528760075C31E /* PhotoViewController.swift in Sources */,
 				8289F9BE2C78FE1100A6993E /* VKURL.swift in Sources */,
 				8289F9B82C78C4B300A6993E /* VKRequest.swift in Sources */,
+				8230A5A42C7A1C3F00C92578 /* VideoModel.swift in Sources */,
 				827646152C7528E90075C31E /* PhotoPresenter.swift in Sources */,
 				8276461B2C75358A0075C31E /* ModuleBuilder.swift in Sources */,
+				8230A5A12C7A077100C92578 /* PhotoModel.swift in Sources */,
 				82D238AA2C7762A20062DCA6 /* CustomSegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

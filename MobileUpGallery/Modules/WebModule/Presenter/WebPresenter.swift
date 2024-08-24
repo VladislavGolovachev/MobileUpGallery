@@ -36,6 +36,9 @@ final class WebPresenter: WebViewPresenterProtocol {
         for queryItem in queryItems {
             if let value = queryItem.value {
                 print(queryItem.name, value)
+                if queryItem.name == "access_token" {
+                    print(VKURL.getAPIURL(for: .photos, with: (accessToken: value, count: "20", offset: "0"))!.absoluteString)
+                }
             }
         }
     }

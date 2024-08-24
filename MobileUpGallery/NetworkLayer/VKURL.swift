@@ -31,7 +31,7 @@ struct VKURL {
         urlComponents.host = "api.vk.com"
         urlComponents.queryItems = [
             URLQueryItem(name: "access_token", value: details.accessToken),
-            URLQueryItem(name: "owner_id", value: "128666765"),
+            URLQueryItem(name: "owner_id", value: "-128666765"),
             URLQueryItem(name: "v", value: "5.199"),
             URLQueryItem(name: "count", value: details.count),
             URLQueryItem(name: "offset", value: details.offset)

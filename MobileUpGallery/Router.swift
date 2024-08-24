@@ -9,37 +9,55 @@ import UIKit
 
 protocol RouterProtocol {
     init(moduleBuilder: ModuleBuilderProtocol)
+    
+    func initiateNavigationViewController() -> UIViewController
+    func initiateAuthViewController() -> UIViewController
+    
     func showWebViewController()
     func goToMainViewController()
     func goToPhotoViewController()
     func goToVideoViewController()
+    
     func popToPreviousViewController()
+    func popToAuthViewController()
 }
 
 final class Router: RouterProtocol {
-    var moduleBuilder: ModuleBuilderProtocol
-    lazy var rootViewController: UIViewController = {
-        return moduleBuilder.createAuthModule(router: self)
-    }()
-    var navigationController: UINavigationController? {
-        return rootViewController.presentedViewController as? UINavigationController
-    }
+    private var moduleBuilder: ModuleBuilderProtocol
+    private var authViewController: UIViewController?
+    private var navigationController: UINavigationController?
     
     init(moduleBuilder: ModuleBuilderProtocol) {
         self.moduleBuilder = moduleBuilder
     }
     
+    func initiateAuthViewController() -> UIViewController {
+        let authVC = moduleBuilder.createAuthModule(router: self)
+        authViewController = authVC
+        
+        return authVC
+    }
+    
+    func initiateNavigationViewController() -> UIViewController {
+        let mainVC = moduleBuilder.createMainModule(router: self)
+        let navVC = UINavigationController(rootViewController: mainVC)
+        navigationController = navVC
+        
+        return navVC
+    }
+    
     func showWebViewController() {
         let webVC = moduleBuilder.createWebModule(router: self)
-        rootViewController.present(webVC, animated: true)
+        authViewController?.present(webVC, animated: true)
     }
     
     func goToMainViewController() {
-        let mainVC = moduleBuilder.createMainModule(router: self)
-        let navVC = UINavigationController(rootViewController: mainVC)
-        navVC.modalPresentationStyle = .fullScreen
-        navVC.modalTransitionStyle = .coverVertical
-        rootViewController.present(navVC, animated: true)
+        let navVC = initiateNavigationViewController()
+        guard let authVC = authViewController, let window = authVC.view.window else {return}
+        window.rootViewController = navVC
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve) {
+            self.authViewController = nil
+        }
     }
     
     func goToPhotoViewController() {
@@ -53,10 +71,15 @@ final class Router: RouterProtocol {
     }
     
     func popToPreviousViewController() {
-        if let count = navigationController?.viewControllers.count, count == 1 {
-            navigationController?.dismiss(animated: true)
-        } else {
-            navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func popToAuthViewController() {
+        let authVC = initiateAuthViewController()
+        guard let navVC = navigationController, let window = navVC.view.window else {return}
+        window.rootViewController = authVC
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve) {
+            self.navigationController = nil
         }
     }
 }

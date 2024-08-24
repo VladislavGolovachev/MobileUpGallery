@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PhotoResponse {
+struct PhotoModel {
     let data: Data
     let date: Date
 }

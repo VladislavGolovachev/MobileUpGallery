@@ -11,7 +11,7 @@
 		8230A59E2C7A011600C92578 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A59D2C7A011600C92578 /* DataManager.swift */; };
 		8230A5A12C7A077100C92578 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5A02C7A077100C92578 /* PhotoModel.swift */; };
 		8230A5A42C7A1C3F00C92578 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5A32C7A1C3F00C92578 /* VideoModel.swift */; };
-		8230A5A92C7A2A5F00C92578 /* PhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5A82C7A2A5F00C92578 /* PhotosResponse.swift */; };
+		8230A5A92C7A2A5F00C92578 /* PhotoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5A82C7A2A5F00C92578 /* PhotoResponse.swift */; };
 		8230A5AB2C7A2E0D00C92578 /* VideoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5AA2C7A2E0D00C92578 /* VideoResponse.swift */; };
 		8276460D2C7528760075C31E /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276460C2C7528760075C31E /* PhotoViewController.swift */; };
 		8276460F2C7528820075C31E /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276460E2C7528820075C31E /* VideoViewController.swift */; };
@@ -45,7 +45,7 @@
 		8230A59D2C7A011600C92578 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		8230A5A02C7A077100C92578 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		8230A5A32C7A1C3F00C92578 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
-		8230A5A82C7A2A5F00C92578 /* PhotosResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosResponse.swift; sourceTree = "<group>"; };
+		8230A5A82C7A2A5F00C92578 /* PhotoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResponse.swift; sourceTree = "<group>"; };
 		8230A5AA2C7A2E0D00C92578 /* VideoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoResponse.swift; sourceTree = "<group>"; };
 		8276460C2C7528760075C31E /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		8276460E2C7528820075C31E /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		8230A5A72C7A2A3A00C92578 /* VKResponses */ = {
 			isa = PBXGroup;
 			children = (
-				8230A5A82C7A2A5F00C92578 /* PhotosResponse.swift */,
+				8230A5A82C7A2A5F00C92578 /* PhotoResponse.swift */,
 				8230A5AA2C7A2E0D00C92578 /* VideoResponse.swift */,
 			);
 			path = VKResponses;
@@ -416,7 +416,7 @@
 				82D238852C7605E50062DCA6 /* PaddingLabel.swift in Sources */,
 				82D238A82C77628F0062DCA6 /* PhotoCollectionViewCell.swift in Sources */,
 				82D238AC2C7763050062DCA6 /* WebViewController.swift in Sources */,
-				8230A5A92C7A2A5F00C92578 /* PhotosResponse.swift in Sources */,
+				8230A5A92C7A2A5F00C92578 /* PhotoResponse.swift in Sources */,
 				8276460D2C7528760075C31E /* PhotoViewController.swift in Sources */,
 				8289F9BE2C78FE1100A6993E /* VKURL.swift in Sources */,
 				8289F9B82C78C4B300A6993E /* VKRequest.swift in Sources */,

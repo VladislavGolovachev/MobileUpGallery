@@ -1,5 +1,5 @@
 //
-//  PhotosResponse.swift
+//  PhotoResponse.swift
 //  MobileUpGallery
 //
 //  Created by Владислав Головачев on 24.08.2024.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct PhotosResponse: Decodable {
+struct PhotoResponse: Decodable {
     var photos = [RawPhotoModel]()
     
     init(from decoder: any Decoder) throws {
-        let response = try RawPhotosResponse(from: decoder).response
+        let response = try RawPhotoResponse(from: decoder).response
         
         response.items.forEach {
             let date = $0.date
@@ -28,7 +28,7 @@ struct PhotosResponse: Decodable {
     }
 }
 
-struct RawPhotosResponse: Decodable {
+struct RawPhotoResponse: Decodable {
     let response: Response
     
     struct Response: Decodable {

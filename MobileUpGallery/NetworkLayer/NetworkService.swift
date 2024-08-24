@@ -11,6 +11,7 @@ protocol NetworkServiceProtocol {
     func authRequest() -> URLRequest?
     func getPhotos(details: (accessToken: String, count: String, offset: String), completion: @escaping (Result<PhotoResponse, Error>) -> Void)
     func getVideos(details: (accessToken: String, count: String, offset: String), completion: @escaping (Result<VideoResponse, Error>) -> Void)
+    func downloadPhoto(by urlString: String, completion: @escaping (Result<Data, Error>) -> Void)
 }
 
 struct NetworkService {
@@ -69,6 +70,22 @@ extension NetworkService: NetworkServiceProtocol {
                 completion(.success(videoResponse))
             } catch {
                 completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
+    func downloadPhoto(by urlString: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        guard let url = URL(string: urlString) else {return}
+        let urlRequest = URLRequest(url: url)
+        
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
+            if let error {
+                completion(.failure(error))
+                return
+            }
+            if let data {
+                completion(.success(data))
             }
         }
         task.resume()

@@ -15,9 +15,9 @@ protocol KeychainManagerProtocol {
 }
 
 protocol AccessTokenStorage {
-    func addToken(_ accessToken: String, label: String) throws
+    func addToken(_ accessToken: AccessToken, label: String) throws
     func removeToken(label: String) throws
-    func updateToken(_ accessToken: String, label: String) throws
+    func updateToken(_ accessToken: AccessToken, label: String) throws
     func token(forLabel label: String) throws -> AccessToken?
 }
 
@@ -60,12 +60,12 @@ final class SecureStorageManager: KeychainManagerProtocol {
 
 extension SecureStorageManager: AccessTokenStorage {
     
-    func addToken(_ accessToken: String, label: String) throws {
-        guard let tokenData = accessToken.data(using: .utf8) else {return}
+    func addToken(_ accessToken: AccessToken, label: String) throws {
+        guard let tokenData = accessToken.token.data(using: .utf8) else {return}
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrLabel: label,
-            kSecAttrCreationDate: Date.now,
+            kSecAttrCreationDate: accessToken.creationDate,
             kSecValueData: tokenData
         ]
         
@@ -89,15 +89,15 @@ extension SecureStorageManager: AccessTokenStorage {
         }
     }
     
-    func updateToken(_ accessToken: String, label: String) throws {
-        guard let tokenData = accessToken.data(using: .utf8) else {return}
+    func updateToken(_ accessToken: AccessToken, label: String) throws {
+        guard let tokenData = accessToken.token.data(using: .utf8) else {return}
         
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrLabel: label
         ]
         let attributes: [CFString: Any] = [
-            kSecAttrCreationDate: Date.now,
+            kSecAttrCreationDate: accessToken.creationDate,
             kSecValueData: tokenData
         ]
         
@@ -117,7 +117,6 @@ extension SecureStorageManager: AccessTokenStorage {
         ]
         
         var result: [CFString: Any]?
-        
         do {
             result = try findItem(query: query)
         } catch {
@@ -135,19 +134,12 @@ extension SecureStorageManager: AccessTokenStorage {
     }
 }
 
-struct AccessToken {
-    let token: String
-    let creationDate: Date
-}
-
 enum KeychainError: Error {
     case itemAlreadyExists
     case itemNotFound
     case unknownStatus(String)
     
     init(status: OSStatus) {
-        
-            print(status)
         switch status {
         case errSecDuplicateItem:
             self = .itemAlreadyExists

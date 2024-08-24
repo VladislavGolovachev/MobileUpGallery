@@ -8,25 +8,41 @@
 import UIKit
 
 protocol CacheManagerProtocol {
-    func addItem(_ item: UIImage, forKey: String)
-    func item(forKey key: String)
-    func removeItem(forKey key: String)
+    func addPhoto(_ photo: PhotoModel, forKey key: String)
+    func photo(forKey key: String) -> PhotoModel?
+    func addVideo(_ video: VideoModel, forKey key: String)
+    func video(forKey key: String) -> VideoModel?
 }
 
-//struct CacheManager: CacheManagerProtocol {
-//    
-//    private videoCache: NSCache<String, UIVideo>
-//    private photoCache: NSCache<String, Image>
-//    
-//    func addItem(_ item: UIImage, for key: String) {
-//        <#code#>
-//    }
-//    
-//    func item(forKey key: String) {
-//        <#code#>
-//    }
-//    
-//    func removeItem(forKey key: String) {
-//        <#code#>
-//    }
-//}
+struct CacheManager: CacheManagerProtocol {
+    private let photoCache = NSCache<NSString, StructWrapper<PhotoModel>>()
+    private let videoCache = NSCache<NSString, StructWrapper<VideoModel>>()
+    
+    func addPhoto(_ photo: PhotoModel, forKey key: String) {
+        let object = StructWrapper(value: photo)
+        let nsStringKey = NSString(string: key)
+        
+        photoCache.setObject(object, forKey: nsStringKey)
+    }
+    
+    func photo(forKey key: String) -> PhotoModel? {
+        let nsStringKey = NSString(string: key)
+        let object = photoCache.object(forKey: nsStringKey)
+        
+        return object?.value
+    }
+    
+    func addVideo(_ video: VideoModel, forKey key: String) {
+        let object = StructWrapper(value: video)
+        let nsStringKey = NSString(string: key)
+        
+        videoCache.setObject(object, forKey: nsStringKey)
+    }
+    
+    func video(forKey key: String) -> VideoModel? {
+        let nsStringKey = NSString(string: key)
+        let object = videoCache.object(forKey: nsStringKey)
+        
+        return object?.value
+    }
+}

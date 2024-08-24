@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+final class StructWrapper<T>: NSObject {
+    let value: T
+    init(value: T) {
+        self.value = value
+    }
+}

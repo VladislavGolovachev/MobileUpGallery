@@ -25,7 +25,6 @@ final class AuthPresenter: AuthViewPresenterProtocol {
     }
     
     func showLoginWebPage() {
-//        router?.goToMainViewController()
         router?.showWebViewController()
     }
 }

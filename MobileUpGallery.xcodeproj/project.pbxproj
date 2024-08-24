@@ -13,6 +13,8 @@
 		8230A5A42C7A1C3F00C92578 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5A32C7A1C3F00C92578 /* VideoModel.swift */; };
 		8230A5A92C7A2A5F00C92578 /* PhotoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5A82C7A2A5F00C92578 /* PhotoResponse.swift */; };
 		8230A5AB2C7A2E0D00C92578 /* VideoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5AA2C7A2E0D00C92578 /* VideoResponse.swift */; };
+		8230A5AE2C7A39F400C92578 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5AD2C7A39F400C92578 /* AccessToken.swift */; };
+		8230A5B02C7A3F2C00C92578 /* StructWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230A5AF2C7A3F2C00C92578 /* StructWrapper.swift */; };
 		8276460D2C7528760075C31E /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276460C2C7528760075C31E /* PhotoViewController.swift */; };
 		8276460F2C7528820075C31E /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276460E2C7528820075C31E /* VideoViewController.swift */; };
 		827646112C7528D50075C31E /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827646102C7528D50075C31E /* AuthPresenter.swift */; };
@@ -47,6 +49,8 @@
 		8230A5A32C7A1C3F00C92578 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		8230A5A82C7A2A5F00C92578 /* PhotoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResponse.swift; sourceTree = "<group>"; };
 		8230A5AA2C7A2E0D00C92578 /* VideoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoResponse.swift; sourceTree = "<group>"; };
+		8230A5AD2C7A39F400C92578 /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
+		8230A5AF2C7A3F2C00C92578 /* StructWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructWrapper.swift; sourceTree = "<group>"; };
 		8276460C2C7528760075C31E /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		8276460E2C7528820075C31E /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		827646102C7528D50075C31E /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -112,6 +116,14 @@
 			path = VKResponses;
 			sourceTree = "<group>";
 		};
+		8230A5AC2C7A39DD00C92578 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8230A5AD2C7A39F400C92578 /* AccessToken.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		827645FB2C7526A60075C31E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +139,7 @@
 		827645FC2C7526E40075C31E /* AuthModule */ = {
 			isa = PBXGroup;
 			children = (
+				8230A5AC2C7A39DD00C92578 /* Model */,
 				827646002C7527330075C31E /* View */,
 				827646012C7527460075C31E /* Presenter */,
 			);
@@ -268,9 +281,10 @@
 		8289F9BF2C79216B00A6993E /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				8230A59D2C7A011600C92578 /* DataManager.swift */,
 				8289F9C02C79217F00A6993E /* KeyChainManager.swift */,
 				8230A59B2C79F68100C92578 /* CacheManager.swift */,
-				8230A59D2C7A011600C92578 /* DataManager.swift */,
+				8230A5AF2C7A3F2C00C92578 /* StructWrapper.swift */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -397,6 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8230A5B02C7A3F2C00C92578 /* StructWrapper.swift in Sources */,
 				82D238A62C7762820062DCA6 /* VideoCollectionViewCell.swift in Sources */,
 				8230A59E2C7A011600C92578 /* DataManager.swift in Sources */,
 				827646192C752DF20075C31E /* Router.swift in Sources */,
@@ -408,6 +423,7 @@
 				8230A59C2C79F68100C92578 /* CacheManager.swift in Sources */,
 				82C9A1DB2C749DA400D59A8E /* AppDelegate.swift in Sources */,
 				8289F9AB2C78AC8C00A6993E /* WebPresenter.swift in Sources */,
+				8230A5AE2C7A39F400C92578 /* AccessToken.swift in Sources */,
 				827646132C7528E00075C31E /* MainPresenter.swift in Sources */,
 				82D238AE2C77682E0062DCA6 /* MainViewController.swift in Sources */,
 				8276460F2C7528820075C31E /* VideoViewController.swift in Sources */,

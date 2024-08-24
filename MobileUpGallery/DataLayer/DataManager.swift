@@ -20,35 +20,54 @@ protocol DataManagerProtocol {
 }
 
 final class DataManager: DataManagerProtocol {
+    let tokenQueue = DispatchQueue(label: "vladislav-golovachev-tokenQueue", qos: .utility)
+    let itemQueue = DispatchQueue(label: "vladislav-golovachev-itemQueue", qos: .utility, attributes: .concurrent)
     static let shared = DataManager()
     private let cacheManager = CacheManager()
     private let tokenManager = SecureStorageManager() as AccessTokenStorage
     private init() {}
     
     func photo(forkey key: String) -> PhotoModel? {
-        return cacheManager.photo(forKey: key)
+        var photoInstance: PhotoModel?
+        itemQueue.asyncAndWait {
+            photoInstance = cacheManager.photo(forKey: key)
+        }
+        
+        return photoInstance
     }
     
     func video(forKey key: String) -> VideoModel? {
-        return cacheManager.video(forKey: key)
+        var videoInstance: VideoModel?
+        itemQueue.asyncAndWait {
+            videoInstance = cacheManager.video(forKey: key)
+        }
+        
+        return videoInstance
     }
     
     func savePhoto(_ image: PhotoModel, forKey key: String) {
-        cacheManager.addPhoto(image, forKey: key)
+        itemQueue.async {
+            self.cacheManager.addPhoto(image, forKey: key)
+        }
     }
     
     func saveVideo(_ video: VideoModel, forKey key: String) {
-        cacheManager.addVideo(video, forKey: key)
+        itemQueue.async {
+            self.cacheManager.addVideo(video, forKey: key)
+        }
     }
     
     func token(forKey key: String) -> AccessToken? {
-        do {
-            let token = try tokenManager.token(forLabel: key)
-        } catch {
-            print(error.localizedDescription)
+        var token: AccessToken?
+        tokenQueue.asyncAndWait {
+            do {
+                token = try tokenManager.token(forLabel: key)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         
-        return nil
+        return token
     }
     
     func updateToken(with token: AccessToken, forKey key: String) {
@@ -57,18 +76,22 @@ final class DataManager: DataManagerProtocol {
     }
     
     func saveToken(_ token: AccessToken, forKey key: String) {
-        do {
-            try tokenManager.addToken(token, label: key)
-        } catch {
-            print(error.localizedDescription)
+        tokenQueue.async {
+            do {
+                try self.tokenManager.addToken(token, label: key)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
     
     func removeToken(forKey key: String) {
-        do {
-            try tokenManager.removeToken(label: key)
-        } catch {
-            print(error.localizedDescription)
+        tokenQueue.async {
+            do {
+                try self.tokenManager.removeToken(label: key)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 }

@@ -16,6 +16,8 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        
         webView.navigationDelegate = self
         view.addSubview(webView)
         setupConstraints()
@@ -44,8 +46,15 @@ extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, 
                  decidePolicyFor navigationResponse: WKNavigationResponse,
                  decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        presenter?.extractAccessToken(by: navigationResponse.response)
-        decisionHandler(.allow)
+        
+        guard let result = presenter?.extractAccessToken(by: navigationResponse.response) else {return}
+    
+        if result {
+            presenter?.showMainScreen()
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
+        }
     }
 }
 

@@ -19,7 +19,7 @@
 		8289F9AB2C78AC8C00A6993E /* WebPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F9AA2C78AC8C00A6993E /* WebPresenter.swift */; };
 		8289F9B82C78C4B300A6993E /* VKRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F9B72C78C4B200A6993E /* VKRequest.swift */; };
 		8289F9BE2C78FE1100A6993E /* VKURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F9BD2C78FE1100A6993E /* VKURL.swift */; };
-		8289F9C12C79217F00A6993E /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F9C02C79217F00A6993E /* KeyChain.swift */; };
+		8289F9C12C79217F00A6993E /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F9C02C79217F00A6993E /* KeyChainManager.swift */; };
 		82C9A1DB2C749DA400D59A8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C9A1DA2C749DA400D59A8E /* AppDelegate.swift */; };
 		82C9A1DD2C749DA400D59A8E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C9A1DC2C749DA400D59A8E /* SceneDelegate.swift */; };
 		82C9A1DF2C749DA400D59A8E /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C9A1DE2C749DA400D59A8E /* AuthViewController.swift */; };
@@ -47,7 +47,7 @@
 		8289F9AA2C78AC8C00A6993E /* WebPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPresenter.swift; sourceTree = "<group>"; };
 		8289F9B72C78C4B200A6993E /* VKRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKRequest.swift; sourceTree = "<group>"; };
 		8289F9BD2C78FE1100A6993E /* VKURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKURL.swift; sourceTree = "<group>"; };
-		8289F9C02C79217F00A6993E /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
+		8289F9C02C79217F00A6993E /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		82C9A1D72C749DA400D59A8E /* MobileUpGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileUpGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82C9A1DA2C749DA400D59A8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82C9A1DC2C749DA400D59A8E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 		8289F9BF2C79216B00A6993E /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				8289F9C02C79217F00A6993E /* KeyChain.swift */,
+				8289F9C02C79217F00A6993E /* KeyChainManager.swift */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -366,7 +366,7 @@
 				827646132C7528E00075C31E /* MainPresenter.swift in Sources */,
 				82D238AE2C77682E0062DCA6 /* MainViewController.swift in Sources */,
 				8276460F2C7528820075C31E /* VideoViewController.swift in Sources */,
-				8289F9C12C79217F00A6993E /* KeyChain.swift in Sources */,
+				8289F9C12C79217F00A6993E /* KeyChainManager.swift in Sources */,
 				82C9A1DD2C749DA400D59A8E /* SceneDelegate.swift in Sources */,
 				82D238852C7605E50062DCA6 /* PaddingLabel.swift in Sources */,
 				82D238A82C77628F0062DCA6 /* PhotoCollectionViewCell.swift in Sources */,

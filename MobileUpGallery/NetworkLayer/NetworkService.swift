@@ -9,8 +9,8 @@ import Foundation
 
 protocol NetworkServiceProtocol {
     func authRequest() -> URLRequest?
-    func getPhotos(details: (accessToken: String, count: String, offset: String))
-    func getVideos(details: (accessToken: String, count: String, offset: String))
+    func getPhotos(details: (accessToken: String, count: String, offset: String), completion: @escaping (Result<PhotoResponse, Error>) -> Void)
+    func getVideos(details: (accessToken: String, count: String, offset: String), completion: @escaping (Result<VideoResponse, Error>) -> Void)
 }
 
 struct NetworkService {
@@ -31,11 +31,46 @@ extension NetworkService: NetworkServiceProtocol {
         return request(.auth)
     }
     
-    func getPhotos(details: (accessToken: String, count: String, offset: String)) {
-        guard let urlRequest = request(.api(.photos, details: details)) else {return}
+    func getPhotos(details: (accessToken: String, count: String, offset: String),
+                   completion: @escaping (Result<PhotoResponse, Error>) -> Void) {
+        guard let getPhotosRequest = request(.api(.photos, details: details)) else {return}
+        
+        let task = URLSession.shared.dataTask(with: getPhotosRequest) { data, _, error in
+            if let error {
+                completion(.failure(error))
+                return
+            }
+            guard let data else {return}
+            
+            do {
+                let photoResponse = try JSONDecoder().decode(PhotoResponse.self, from: data)
+                completion(.success(photoResponse))
+            } catch {
+                completion(.failure(error))
+            }
+            
+        }
+        task.resume()
     }
     
-    func getVideos(details: (accessToken: String, count: String, offset: String)) {
-        guard let urlRequest = request(.api(.videos, details: details)) else {return}
+    func getVideos(details: (accessToken: String, count: String, offset: String),
+                   completion: @escaping (Result<VideoResponse, Error>) -> Void) {
+        guard let getVideosRequest = request(.api(.videos, details: details)) else {return}
+        
+        let task = URLSession.shared.dataTask(with: getVideosRequest) { data, _, error in
+            if let error {
+                completion(.failure(error))
+                return
+            }
+            guard let data else {return}
+            
+            do {
+                let videoResponse = try JSONDecoder().decode(VideoResponse.self, from: data)
+                completion(.success(videoResponse))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
     }
 }

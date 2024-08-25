@@ -23,6 +23,7 @@ final class MainViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.prefetchDataSource = self
         
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "Photo")
         collectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: "Video")
@@ -34,6 +35,9 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter?.prefetchPhotos(forIndex: 0)
+        
         view.backgroundColor = .white
         customizeNavigationBar()
         
@@ -43,6 +47,8 @@ final class MainViewController: UIViewController {
         view.addSubview(photoVideoControl)
         view.addSubview(collectionView)
         setupConstraints()
+        
+        collectionView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -100,27 +106,27 @@ extension MainViewController {
     }
     
     @objc func exitButtonAction(_ sender: UIButton) {
-        presenter?.returnToAuthScreen()
+        presenter?.popToAuthScreen()
     }
 }
 
 //MARK: UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return presenter?.photosAmount ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if photoVideoControl.selectedSegment == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photo", for: indexPath)
             as? PhotoCollectionViewCell ?? PhotoCollectionViewCell()
-            
-            cell.backgroundColor = .green
+            if let photo = presenter?.photo(at: indexPath.row) {
+                cell.imageView.image = photo
+            }
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Video", for: indexPath)
         as? VideoCollectionViewCell ?? VideoCollectionViewCell()
-        cell.backgroundColor = .blue
         
         return cell
     }
@@ -140,9 +146,18 @@ extension MainViewController: UICollectionViewDelegate {
             presenter?.showPhotoScreen()
         case 1:
             presenter?.showVideoScreen()
-            
         default: break
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        if photoVideoControl.selectedSegment == 0 {
+            guard let photoCell = cell as? PhotoCollectionViewCell else {return}
+        } else {
+            guard let videoCell = cell as? VideoCollectionViewCell else {return}
+        }
+        
     }
 }
 
@@ -165,8 +180,28 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension MainViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let maxIndexPath = indexPaths.max {$0.row > $1.row}
+        guard let maxRow = maxIndexPath?.row else {return}
+        
+        if photoVideoControl.selectedSegment == 0 {
+            presenter?.prefetchPhotos(forIndex: collectionView.numberOfItems(inSection: 0))
+        } else {
+//            presenter?.prefetchVideos(forIndex: index)
+        }
+    }
+}
+
 //MARK: MainViewProtocol
 extension MainViewController: MainViewProtocol {
+    func reloadList() {
+        collectionView.reloadData()
+    }
     
+    func reloadItem(at row: Int) {
+        let indexPath = IndexPath(row: row, section: 0)
+        collectionView.reloadItems(at: [indexPath])
+    }
 }
 

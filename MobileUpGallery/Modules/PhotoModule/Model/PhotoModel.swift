@@ -9,5 +9,5 @@ import Foundation
 
 struct PhotoModel {
     let data: Data
-    let date: Date
+    let creationDate: Date
 }

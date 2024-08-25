@@ -17,14 +17,22 @@ protocol DataManagerProtocol {
     func updateToken(with token: AccessToken, forKey key: String)
     func saveToken(_ token: AccessToken, forKey key: String)
     func removeToken(forKey key: String)
+    
+    var photosAmount: Int {get set}
+    var videosAmount: Int {get set}
 }
 
 final class DataManager: DataManagerProtocol {
     let tokenQueue = DispatchQueue(label: "vladislav-golovachev-tokenQueue", qos: .utility)
     let itemQueue = DispatchQueue(label: "vladislav-golovachev-itemQueue", qos: .utility, attributes: .concurrent)
+    
+    var photosAmount = 0
+    var videosAmount = 0
+    
     static let shared = DataManager()
     private let cacheManager = CacheManager()
     private let tokenManager = SecureStorageManager() as AccessTokenStorage
+    
     private init() {}
     
     func photo(forkey key: String) -> PhotoModel? {
@@ -46,13 +54,13 @@ final class DataManager: DataManagerProtocol {
     }
     
     func savePhoto(_ image: PhotoModel, forKey key: String) {
-        itemQueue.async {
+        itemQueue.asyncAndWait {
             self.cacheManager.addPhoto(image, forKey: key)
         }
     }
     
     func saveVideo(_ video: VideoModel, forKey key: String) {
-        itemQueue.async {
+        itemQueue.asyncAndWait {
             self.cacheManager.addVideo(video, forKey: key)
         }
     }

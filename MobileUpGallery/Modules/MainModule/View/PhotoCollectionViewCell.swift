@@ -31,4 +31,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
+    
+    override func prepareForReuse() {
+        imageView.image = nil
+    }
 }

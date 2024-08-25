@@ -44,4 +44,8 @@ final class VideoCollectionViewCell: PhotoCollectionViewCell {
             label.topAnchor.constraint(greaterThanOrEqualTo: topAnchor)
         ])
     }
+    
+    override func prepareForReuse() {
+        imageView.image = nil
+    }
 }

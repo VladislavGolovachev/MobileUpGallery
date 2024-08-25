@@ -13,19 +13,21 @@ struct PhotoResponse: Decodable {
     init(from decoder: any Decoder) throws {
         let response = try RawPhotoResponse(from: decoder).response
         
-        response.items.forEach {
-            let date = $0.date
-            let urlString = $0.originalPhoto.url
-            let photo = RawPhotoModel(date: date, urlString: urlString)
+        for item in response.items {
+            let date = item.date
+            let photoSize = item.sizes.first {$0.type == "x"}
+            let urlString = photoSize?.url ?? ""
+            
+            let photo = RawPhotoModel(unixTime: date, urlString: urlString)
             
             photos.append(photo)
         }
     }
-    
-    struct RawPhotoModel {
-        let date: String
-        let urlString: String
-    }
+}
+
+struct RawPhotoModel {
+    let unixTime: Int
+    let urlString: String
 }
 
 struct RawPhotoResponse: Decodable {
@@ -35,15 +37,11 @@ struct RawPhotoResponse: Decodable {
         let items: [PhotoItem]
     }
     struct PhotoItem: Decodable {
-        let date: String
-        let originalPhoto: OriginalPhoto
-        
-        enum CodingKeys: String, CodingKey {
-            case date = "date"
-            case originalPhoto = "orig_photo"
-        }
+        let date: Int
+        let sizes: [SizeItem]
     }
-    struct OriginalPhoto: Decodable {
+    struct SizeItem: Decodable {
         let url: String
+        let type: String
     }
 }

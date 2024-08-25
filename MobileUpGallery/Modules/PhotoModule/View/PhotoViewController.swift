@@ -9,6 +9,10 @@ import UIKit
 
 final class PhotoViewController: UIViewController {
 
+    deinit {
+        print("photo dead")
+    }
+    
     var presenter: PhotoViewPresenterProtocol?
     var imageView = UIImageView()
     

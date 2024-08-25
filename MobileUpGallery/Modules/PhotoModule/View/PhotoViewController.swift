@@ -19,7 +19,7 @@ final class PhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        imageView.backgroundColor = .cyan
+        imageView.image = presenter?.photo()
         
         customizeNavigationBar()
         view.addSubview(imageView)
@@ -41,7 +41,7 @@ extension PhotoViewController {
     }
     
     private func customizeNavigationBar() {
-        navigationItem.title = "Data 12.12.12"
+        navigationItem.title = presenter?.date()
 
         let config = UIImage.SymbolConfiguration(weight: .semibold)
         let backButtonImage = UIImage(systemName: "chevron.left", withConfiguration: config)
@@ -62,7 +62,8 @@ extension PhotoViewController {
 //MARK: Actions
 extension PhotoViewController {
     @objc func shareButtonAction(_ sender: UIBarButtonItem) {
-        let shareSheet = UIActivityViewController(activityItems: [UIImage(systemName: "bell")],
+        guard let image = imageView.image else {return}
+        let shareSheet = UIActivityViewController(activityItems: [image],
                                                   applicationActivities: nil)
         shareSheet.excludedActivityTypes = [.print, .assignToContact]
         present(shareSheet, animated: true)

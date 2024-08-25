@@ -14,13 +14,15 @@ protocol MainViewProtocol: AnyObject {
 
 protocol MainViewPresenterProtocol: AnyObject {
     init(view: MainViewProtocol, router: RouterProtocol)
-    func showPhotoScreen()
-    func showVideoScreen()
+    func showPhotoScreen(photoID: Int)
+    func showVideoScreen(videoID: Int)
     func popToAuthScreen()
     
     func prefetchPhotos(forIndex index: Int)
+    func prefetchVideos(for Index: Int)
     func photo(at index: Int) -> UIImage?
     func video(at index: Int) -> UIImage?
+    func videoTitle(at index: Int) -> String?
     var photosAmount: Int {get}
     var videosAmount: Int {get}
 }
@@ -51,7 +53,7 @@ extension MainPresenter: MainViewPresenterProtocol {
             return
         }
         let count = 20
-        let photo = DataManager.shared.photo(forkey: String(index))
+        let photo = DataManager.shared.photo(forKey: String(index))
         
         if photo == nil {
             isDownloading = true
@@ -59,8 +61,21 @@ extension MainPresenter: MainViewPresenterProtocol {
         }
     }
     
+    func prefetchVideos(for index: Int) {
+        if isDownloading {
+            return
+        }
+        let count = 10
+        let video = DataManager.shared.video(forKey: String(index))
+        
+        if video == nil {
+            isDownloading = true
+            getVideos(offset: index, count: count)
+        }
+    }
+    
     func photo(at index: Int) -> UIImage? {
-        let photoInstance = DataManager.shared.photo(forkey: String(index))
+        let photoInstance = DataManager.shared.photo(forKey: String(index))
         if let photoData = photoInstance?.data,
            let data = UIImage(data: photoData)?.jpegData(compressionQuality: 0.6) {
             return UIImage(data: data)
@@ -69,15 +84,25 @@ extension MainPresenter: MainViewPresenterProtocol {
     }
     
     func video(at index: Int) -> UIImage? {
-        return UIImage()
+        let videoInstance = DataManager.shared.video(forKey: String(index))
+        if let videoData = videoInstance?.preview,
+           let data = UIImage(data: videoData)?.jpegData(compressionQuality: 0.7) {
+            return UIImage(data: data)
+        }
+        return nil
     }
     
-    func showPhotoScreen() {
-        router?.goToPhotoViewController()
+    func videoTitle(at index: Int) -> String? {
+        let videoInstance = DataManager.shared.video(forKey: String(index))
+        return videoInstance?.title
     }
     
-    func showVideoScreen() {
-        router?.goToVideoViewController()
+    func showPhotoScreen(photoID: Int) {
+        router?.goToPhotoViewController(photoID: String(photoID))
+    }
+    
+    func showVideoScreen(videoID: Int) {
+        router?.goToVideoViewController(videoID: String(videoID))
     }
     
     func popToAuthScreen() {
@@ -92,12 +117,52 @@ extension MainPresenter {
         let details = (accessToken: tokenString, count: String(count), offset: String(offset))
         
         NetworkService.shared.getPhotos(details: details) { [weak self] result in
-            self?.isDownloading = false
             switch result {
             case .success(let photoResponse):
                 self?.savePhotos(photoResponse.photos, offset: offset)
             case .failure(let error):
                 print(error.localizedDescription)
+            }
+            self?.isDownloading = false
+        }
+    }
+    
+    private func getVideos(offset: Int, count: Int) {
+        guard let tokenString = DataManager.shared.token(forKey: AccessToken.key)?.token else {return}
+        let details = (accessToken: tokenString, count: String(count), offset: String(offset))
+        
+        NetworkService.shared.getVideos(details: details) { [weak self] result in
+            switch result {
+            case .success(let videoResponse):
+                self?.saveVideos(videoResponse.videos, offset: offset)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            self?.isDownloading = false
+        }
+    }
+    
+    private func saveVideos(_ videos: [RawVideoModel], offset: Int) {
+        DataManager.shared.videosAmount += videos.count
+        DispatchQueue.main.asyncAndWait {
+            view?.reloadList()
+        }
+        
+        for (index, video) in videos.enumerated() {
+            NetworkService.shared.downloadPhoto(by: video.previewURLString) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    let videoInstance = VideoModel(title: video.title,
+                                                   preview: data,
+                                                   playerURLString: video.playerURLString)
+                    DataManager.shared.saveVideo(videoInstance,
+                                                 forKey: String(index + offset))
+                    DispatchQueue.main.async {
+                        self?.view?.reloadItem(at: index + offset)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
         }
     }

@@ -47,8 +47,6 @@ final class MainViewController: UIViewController {
         view.addSubview(photoVideoControl)
         view.addSubview(collectionView)
         setupConstraints()
-        
-        collectionView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -103,6 +101,7 @@ extension MainViewController {
     @objc func secondSegmentTappedAction(_ sender: UIButton) {
         photoVideoControl.selectSegment(at: 1)
         collectionView.reloadData()
+        presenter?.prefetchVideos(for: 0)
     }
     
     @objc func exitButtonAction(_ sender: UIButton) {
@@ -113,7 +112,10 @@ extension MainViewController {
 //MARK: UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter?.photosAmount ?? 0
+        if photoVideoControl.selectedSegment == 0 {
+            return presenter?.photosAmount ?? 0
+        }
+        return presenter?.videosAmount ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -127,6 +129,8 @@ extension MainViewController: UICollectionViewDataSource {
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Video", for: indexPath)
         as? VideoCollectionViewCell ?? VideoCollectionViewCell()
+        cell.imageView.image = presenter?.video(at: indexPath.row)
+        cell.label.text = presenter?.videoTitle(at: indexPath.row)
         
         return cell
     }
@@ -143,19 +147,18 @@ extension MainViewController: UICollectionViewDelegate {
         
         switch photoVideoControl.selectedSegment {
         case 0:
-            presenter?.showPhotoScreen()
+            presenter?.showPhotoScreen(photoID: indexPath.row)
         case 1:
-            presenter?.showVideoScreen()
+            presenter?.showVideoScreen(videoID: indexPath.row)
         default: break
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
         if photoVideoControl.selectedSegment == 0 {
-            guard let photoCell = cell as? PhotoCollectionViewCell else {return}
+            presenter?.prefetchPhotos(forIndex: indexPath.row)
         } else {
-            guard let videoCell = cell as? VideoCollectionViewCell else {return}
+            presenter?.prefetchVideos(for: indexPath.row)
         }
         
     }
@@ -185,10 +188,11 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
         let maxIndexPath = indexPaths.max {$0.row > $1.row}
         guard let maxRow = maxIndexPath?.row else {return}
         
+        let index = collectionView.numberOfItems(inSection: 0)
         if photoVideoControl.selectedSegment == 0 {
-            presenter?.prefetchPhotos(forIndex: collectionView.numberOfItems(inSection: 0))
+            presenter?.prefetchPhotos(forIndex: index)
         } else {
-//            presenter?.prefetchVideos(forIndex: index)
+            presenter?.prefetchVideos(for: index)
         }
     }
 }

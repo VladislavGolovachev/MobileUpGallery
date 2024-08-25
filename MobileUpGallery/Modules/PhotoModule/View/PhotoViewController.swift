@@ -8,11 +8,6 @@
 import UIKit
 
 final class PhotoViewController: UIViewController {
-
-    deinit {
-        print("photo dead")
-    }
-    
     var presenter: PhotoViewPresenterProtocol?
     var imageView = UIImageView()
     
@@ -66,11 +61,31 @@ extension PhotoViewController {
         let shareSheet = UIActivityViewController(activityItems: [image],
                                                   applicationActivities: nil)
         shareSheet.excludedActivityTypes = [.print, .assignToContact]
+        shareSheet.completionWithItemsHandler = { [weak self] _, success, items, error in
+            if success {
+                self?.showAlert(title: "Сообщение", message: "Фото успешно сохранено")
+            } else {
+                self?.showAlert(title: "Возникла ошибка", message: "Не удалось сохранить изображение")
+            }
+        }
+        
         present(shareSheet, animated: true)
     }
     
     @objc func backButtonAction(_ sender: UIBarButtonItem) {
         presenter?.goToPreviousScreen()
+    }
+}
+
+//MARK: Private Functions
+extension PhotoViewController
+{
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Закрыть", style: .default))
+        self.present(alert, animated: true)
     }
 }
 

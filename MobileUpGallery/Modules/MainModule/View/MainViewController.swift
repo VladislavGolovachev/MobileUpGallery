@@ -82,7 +82,8 @@ extension MainViewController {
     
     private func customizeNavigationBar() {
         navigationItem.title = "MobileUp Gallery"
-        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 17, weight: .semibold)]
+        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 17, weight: .semibold),
+                                                                   .foregroundColor: UIColor.black]
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выход", style: .plain,
                                                             target: self, action: #selector(exitButtonAction(_:)))

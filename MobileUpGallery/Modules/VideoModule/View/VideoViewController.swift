@@ -9,11 +9,6 @@ import UIKit
 import WebKit
 
 final class VideoViewController: UIViewController {
-
-    deinit {
-        print("video dead")
-    }
-    
     var presenter: VideoViewPresenterProtocol?
     var webView = WKWebView()
     

@@ -42,43 +42,17 @@ final class PhotoPresenter: PhotoViewPresenterProtocol {
         let photoInstance = DataManager.shared.photo(forKey: photoID)
         guard let date = photoInstance?.creationDate else {return ""}
         
-        return russianDate(from: date)
-    }
-    
-    func goToPreviousScreen() {
-        router?.popToPreviousViewController()
-    }
-}
-
-//MARK: Private Functions
-extension PhotoPresenter {
-    private var russianMonthDictionary: [String: String] {
-        [
-            "January": "января",
-            "February": "февраля",
-            "March": "марта",
-            "April": "апреля",
-            "May": "мая",
-            "June": "июня",
-            "July": "июля",
-            "August": "августа",
-            "September": "сентября",
-            "October": "октября",
-            "November": "ноября",
-            "December": "декабря"
-        ]
-    }
-    
-    private func russianDate(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
 
         let formattedString = formatter.string(from: date)
-        let components = formattedString.components(separatedBy: " ")
-        let (day, month, year) = (components[0], components[1], components[2])
+        let dateString = formattedString.prefix(formattedString.count - 2)
         
-        let russianMonth = russianMonthDictionary[month] ?? ""
-        return "\(day) \(russianMonth) \(year)"
+        return "\(dateString)"
+    }
+    
+    func goToPreviousScreen() {
+        router?.popToPreviousViewController()
     }
 }

@@ -78,8 +78,7 @@ extension PhotoViewController {
 }
 
 //MARK: Private Functions
-extension PhotoViewController
-{
+extension PhotoViewController {
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title,
                                       message: message,

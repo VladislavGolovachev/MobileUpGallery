@@ -15,12 +15,15 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        
         webView.navigationDelegate = self
+        view.backgroundColor = .white
+        webView.backgroundColor = .white
+        
         view.addSubview(webView)
         setupConstraints()
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         guard let urlRequest = NetworkService.shared.authRequest() else {return}
         webView.load(urlRequest)
     }

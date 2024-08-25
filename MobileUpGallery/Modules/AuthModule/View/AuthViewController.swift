@@ -44,6 +44,13 @@ final class AuthViewController: UIViewController {
         
         setupConstraints()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let result = presenter?.needsToShow(), result.0 {
+            showAlert(message: result.1)
+        }
+    }
 }
 
 //MARK: Private functions
@@ -63,6 +70,14 @@ extension AuthViewController {
             authButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             authButton.heightAnchor.constraint(equalToConstant: 52)
         ])
+    }
+    
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Внимание",
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Закрыть", style: .default))
+        self.present(alert, animated: true)
     }
 }
 

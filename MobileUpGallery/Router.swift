@@ -15,8 +15,8 @@ protocol RouterProtocol {
     
     func showWebViewController()
     func goToMainViewController()
-    func goToPhotoViewController()
-    func goToVideoViewController()
+    func goToPhotoViewController(photoID: String)
+    func goToVideoViewController(videoID: String)
     
     func popToPreviousViewController()
     func popToAuthViewController()
@@ -60,13 +60,13 @@ final class Router: RouterProtocol {
         }
     }
     
-    func goToPhotoViewController() {
-        let photoVC = moduleBuilder.createPhotoModule(router: self)
+    func goToPhotoViewController(photoID: String) {
+        let photoVC = moduleBuilder.createPhotoModule(router: self, photoID: photoID)
         navigationController?.pushViewController(photoVC, animated: true)
     }
     
-    func goToVideoViewController() {
-        let videoVC = moduleBuilder.createVideoModule(router: self)
+    func goToVideoViewController(videoID: String) {
+        let videoVC = moduleBuilder.createVideoModule(router: self, videoID: videoID)
         navigationController?.pushViewController(videoVC, animated: true)
     }
     

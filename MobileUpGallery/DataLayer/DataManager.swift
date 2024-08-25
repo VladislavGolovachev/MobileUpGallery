@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DataManagerProtocol {
-    func photo(forkey key: String) -> PhotoModel?
+    func photo(forKey key: String) -> PhotoModel?
     func video(forKey key: String) -> VideoModel?
     func savePhoto(_ image: PhotoModel, forKey key: String)
     func saveVideo(_ video: VideoModel, forKey key: String)
@@ -35,7 +35,7 @@ final class DataManager: DataManagerProtocol {
     
     private init() {}
     
-    func photo(forkey key: String) -> PhotoModel? {
+    func photo(forKey key: String) -> PhotoModel? {
         var photoInstance: PhotoModel?
         itemQueue.asyncAndWait {
             photoInstance = cacheManager.photo(forKey: key)

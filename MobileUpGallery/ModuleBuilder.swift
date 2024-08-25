@@ -11,8 +11,8 @@ protocol ModuleBuilderProtocol {
     func createAuthModule(router: RouterProtocol) -> UIViewController
     func createWebModule(router: RouterProtocol) -> UIViewController
     func createMainModule(router: RouterProtocol) -> UIViewController
-    func createPhotoModule(router: RouterProtocol) -> UIViewController
-    func createVideoModule(router: RouterProtocol) -> UIViewController
+    func createPhotoModule(router: RouterProtocol, photoID: String) -> UIViewController
+    func createVideoModule(router: RouterProtocol, videoID: String) -> UIViewController
 }
 
 final class ModuleBuilder: ModuleBuilderProtocol {
@@ -40,17 +40,17 @@ final class ModuleBuilder: ModuleBuilderProtocol {
         return vc
     }
     
-    func createPhotoModule(router: RouterProtocol) -> UIViewController {
+    func createPhotoModule(router: RouterProtocol, photoID: String) -> UIViewController {
         let vc = PhotoViewController()
-        let presenter = PhotoPresenter(view: vc, router: router)
+        let presenter = PhotoPresenter(view: vc, router: router, photoID: photoID)
         vc.presenter = presenter
         
         return vc
     }
     
-    func createVideoModule(router: RouterProtocol) -> UIViewController {
+    func createVideoModule(router: RouterProtocol, videoID: String) -> UIViewController {
         let vc = VideoViewController()
-        let presenter = VideoPresenter(view: vc, router: router)
+        let presenter = VideoPresenter(view: vc, router: router, videoID: videoID)
         vc.presenter = presenter
         
         return vc

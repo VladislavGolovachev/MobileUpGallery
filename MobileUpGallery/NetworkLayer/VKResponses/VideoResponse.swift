@@ -15,34 +15,36 @@ struct VideoResponse: Decodable {
         
         for item in response.items {
             let image = item.image.max {
-                $0.width * $0.height > $1.width * $1.height
+                $0.width * $0.height < $1.width * $1.height
             }
             
             let previewURLString = image?.url ?? ""
-            let description = item.description
+            let title = item.title
             let playerURLString = item.player
             
-            let video = RawVideoModel(description: description,
+            let video = RawVideoModel(title: title,
                                       previewURLString: previewURLString,
                                       playerURLString: playerURLString)
             
             videos.append(video)
         }
     }
-    
-    struct RawVideoModel: Decodable {
-        let description: String
-        let previewURLString: String
-        let playerURLString: String
-    }
+}
+
+struct RawVideoModel: Decodable {
+    let title: String
+    let previewURLString: String
+    let playerURLString: String
 }
 
 struct RawVideoResponse: Decodable {
+    let response: Response
+    
     struct Response: Decodable {
         let items: [VideoItem]
     }
     struct VideoItem: Decodable {
-        let description: String
+        let title: String
         let image: [VideoPreview]
         let player: String
     }
@@ -51,5 +53,4 @@ struct RawVideoResponse: Decodable {
         let width: Int
         let height: Int
     }
-    let response: Response
 }

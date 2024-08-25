@@ -8,7 +8,7 @@
 import Foundation
 
 struct VideoModel {
-    let description: String
+    let title: String
     let preview: Data
     let playerURLString: String
 }

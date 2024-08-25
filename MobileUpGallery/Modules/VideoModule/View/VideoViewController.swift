@@ -20,9 +20,11 @@ final class VideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        webView.backgroundColor = .blue
+        webView.backgroundColor = .white
         
-        webView.load(URLRequest(url: URL(string: "https://www.youtube.com/watch?v=M-OdGpeAqQQ")!))
+        if let urlRequest = presenter?.playerURRequestL() {
+            webView.load(urlRequest)
+        }
         
         customizeNavigationBar()
         view.addSubview(webView)
@@ -66,7 +68,9 @@ extension VideoViewController {
 //MARK: Actions
 extension VideoViewController {
     @objc func shareButtonAction(_ sender: UIBarButtonItem) {
-        let shareSheet = UIActivityViewController(activityItems: [URL(string: "https://www.youtube.com/watch?v=M-OdGpeAqQQ")!],
+        guard let playerURL = presenter?.playerURL() else {return}
+        
+        let shareSheet = UIActivityViewController(activityItems: [playerURL],
                                                   applicationActivities: nil)
         shareSheet.excludedActivityTypes = [.print, .assignToContact]
         present(shareSheet, animated: true)

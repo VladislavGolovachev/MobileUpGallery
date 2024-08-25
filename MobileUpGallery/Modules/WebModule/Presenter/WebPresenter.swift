@@ -8,7 +8,7 @@
 import Foundation
 
 protocol WebViewProtocol: AnyObject {
-    
+    func showAlert(message: String)
 }
 
 protocol WebViewPresenterProtocol: AnyObject {
@@ -41,10 +41,18 @@ final class WebPresenter: WebViewPresenterProtocol {
         for queryItem in queryItems {
             if queryItem.name == AccessToken.key {
                 guard let tokenString = queryItem.value else {return false}
-                
                 let token = AccessToken(token: tokenString, creationDate: Date.now)
-                DataManager.shared.updateToken(with: token, forKey: AccessToken.key)
                 
+                do {
+                    try DataManager.shared.saveToken(token, forKey: AccessToken.key)
+                } catch {
+                    let message = ErrorHandler().handle(error: error)
+                    view?.showAlert(message: message)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        self.router?.dismissWebViewController()
+                    }
+                    return false
+                }
                 return true
             }
         }

@@ -81,7 +81,6 @@ extension VideoViewController {
     }
 }
 
-//MARK: VideoViewProtocol
 extension VideoViewController: VideoViewProtocol {
     
 }

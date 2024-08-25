@@ -36,7 +36,8 @@ extension NetworkService: NetworkServiceProtocol {
                    completion: @escaping (Result<PhotoResponse, Error>) -> Void) {
         guard let getPhotosRequest = request(.api(.photos, details: details)) else {return}
         
-        let task = URLSession.shared.dataTask(with: getPhotosRequest) { data, _, error in
+        let task = URLSession.shared.dataTask(with: getPhotosRequest) { data, response, error in
+            
             if let error {
                 completion(.failure(error))
                 return
@@ -58,7 +59,7 @@ extension NetworkService: NetworkServiceProtocol {
                    completion: @escaping (Result<VideoResponse, Error>) -> Void) {
         guard let getVideosRequest = request(.api(.videos, details: details)) else {return}
         
-        let task = URLSession.shared.dataTask(with: getVideosRequest) { data, _, error in
+        let task = URLSession.shared.dataTask(with: getVideosRequest) { data, response, error in
             if let error {
                 completion(.failure(error))
                 return
@@ -79,7 +80,7 @@ extension NetworkService: NetworkServiceProtocol {
         guard let url = URL(string: urlString) else {return}
         let urlRequest = URLRequest(url: url)
         
-        let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let error {
                 completion(.failure(error))
                 return

@@ -9,7 +9,6 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController {
-    
     var presenter: WebViewPresenterProtocol?
     let webView = WKWebView()
     
@@ -60,5 +59,11 @@ extension WebViewController: WKNavigationDelegate {
 
 //MARK: WebViewPresenterProtocol
 extension WebViewController: WebViewProtocol {
-    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Возникла ошибка",
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Закрыть", style: .default))
+        self.present(alert, animated: true)
+    }
 }

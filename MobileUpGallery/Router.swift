@@ -20,6 +20,7 @@ protocol RouterProtocol {
     
     func popToPreviousViewController()
     func popToAuthViewController()
+    func dismissWebViewController()
 }
 
 final class Router: RouterProtocol {
@@ -81,5 +82,9 @@ final class Router: RouterProtocol {
         UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve) {
             self.navigationController = nil
         }
+    }
+    
+    func dismissWebViewController() {
+        authViewController?.dismiss(animated: true)
     }
 }

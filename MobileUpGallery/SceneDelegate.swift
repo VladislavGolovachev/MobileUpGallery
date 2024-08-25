@@ -17,10 +17,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let moduleBuilder = ModuleBuilder()
         let router = Router(moduleBuilder: moduleBuilder)
-        var rootVC = router.initiateAuthViewController()
+        var rootVC = UIViewController()
         
-        if let token = DataManager.shared.token(forKey: AccessToken.key), token.isValid {
+        var token: AccessToken?
+        do {
+            token = try DataManager.shared.token(forKey: AccessToken.key)
+        } catch {}
+        
+        if let token, token.isValid {
             rootVC = router.initiateNavigationViewController()
+        } else {
+            rootVC = router.initiateAuthViewController()
         }
         
         window.rootViewController = rootVC

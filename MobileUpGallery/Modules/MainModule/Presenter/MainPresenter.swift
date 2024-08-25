@@ -10,6 +10,7 @@ import UIKit
 protocol MainViewProtocol: AnyObject {
     func reloadList()
     func reloadItem(at row: Int)
+    func showAlert(message: String)
 }
 
 protocol MainViewPresenterProtocol: AnyObject {
@@ -106,14 +107,42 @@ extension MainPresenter: MainViewPresenterProtocol {
     }
     
     func popToAuthScreen() {
+        do {
+            try DataManager.shared.removeToken(forKey: AccessToken.key)
+        } catch {
+            let message = ErrorHandler().handle(error: error)
+            view?.showAlert(message: message)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.router?.popToAuthViewController()
+            }
+            return
+        }
         router?.popToAuthViewController()
     }
 }
 
 //MARK: Private Functions
 extension MainPresenter {
+    func getTokenString() throws -> String? {
+        var tokenString: String?
+        do {
+            tokenString = try DataManager.shared.token(forKey: AccessToken.key)?.token
+        } catch {
+            throw(error)
+        }
+        
+        return tokenString
+    }
+    
     private func getPhotos(offset: Int, count: Int) {
-        guard let tokenString = DataManager.shared.token(forKey: AccessToken.key)?.token else {return}
+        var token: String?
+        do {
+            token = try getTokenString()
+        } catch {
+            view?.showAlert(message: ErrorHandler().handle(error: error))
+            return
+        }
+        guard let tokenString = token else {return}
         let details = (accessToken: tokenString, count: String(count), offset: String(offset))
         
         NetworkService.shared.getPhotos(details: details) { [weak self] result in
@@ -128,7 +157,14 @@ extension MainPresenter {
     }
     
     private func getVideos(offset: Int, count: Int) {
-        guard let tokenString = DataManager.shared.token(forKey: AccessToken.key)?.token else {return}
+        var token: String?
+        do {
+            token = try getTokenString()
+        } catch {
+            view?.showAlert(message: ErrorHandler().handle(error: error))
+            return
+        }
+        guard let tokenString = token else {return}
         let details = (accessToken: tokenString, count: String(count), offset: String(offset))
         
         NetworkService.shared.getVideos(details: details) { [weak self] result in

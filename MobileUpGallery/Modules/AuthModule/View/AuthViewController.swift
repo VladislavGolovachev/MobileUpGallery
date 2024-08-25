@@ -44,9 +44,6 @@ final class AuthViewController: UIViewController {
         
         setupConstraints()
     }
-    deinit {
-        print("auth dead")
-    }
 }
 
 //MARK: Private functions

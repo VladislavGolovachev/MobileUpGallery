@@ -13,17 +13,15 @@ protocol DataManagerProtocol {
     func savePhoto(_ image: PhotoModel, forKey key: String)
     func saveVideo(_ video: VideoModel, forKey key: String)
     
-    func token(forKey key: String) -> AccessToken?
-    func updateToken(with token: AccessToken, forKey key: String)
-    func saveToken(_ token: AccessToken, forKey key: String)
-    func removeToken(forKey key: String)
+    func token(forKey key: String) throws -> AccessToken?
+    func saveToken(_ token: AccessToken, forKey key: String) throws
+    func removeToken(forKey key: String) throws
     
     var photosAmount: Int {get set}
     var videosAmount: Int {get set}
 }
 
 final class DataManager: DataManagerProtocol {
-    let tokenQueue = DispatchQueue(label: "vladislav-golovachev-tokenQueue", qos: .utility)
     let itemQueue = DispatchQueue(label: "vladislav-golovachev-itemQueue", qos: .utility, attributes: .concurrent)
     
     var photosAmount = 0
@@ -65,41 +63,30 @@ final class DataManager: DataManagerProtocol {
         }
     }
     
-    func token(forKey key: String) -> AccessToken? {
+    func token(forKey key: String) throws -> AccessToken? {
         var token: AccessToken?
-        tokenQueue.asyncAndWait {
-            do {
-                token = try tokenManager.token(forLabel: key)
-            } catch {
-                print(error.localizedDescription)
-            }
+        do {
+            token = try tokenManager.token(forLabel: key)
+        } catch {
+            throw(error)
         }
         
         return token
     }
     
-    func updateToken(with token: AccessToken, forKey key: String) {
-        removeToken(forKey: key)
-        saveToken(token, forKey: key)
-    }
-    
-    func saveToken(_ token: AccessToken, forKey key: String) {
-        tokenQueue.async {
-            do {
-                try self.tokenManager.addToken(token, label: key)
-            } catch {
-                print(error.localizedDescription)
-            }
+    func saveToken(_ token: AccessToken, forKey key: String) throws {
+        do {
+            try tokenManager.addToken(token, label: key)
+        } catch {
+            throw(error)
         }
     }
     
-    func removeToken(forKey key: String) {
-        tokenQueue.async {
-            do {
-                try self.tokenManager.removeToken(label: key)
-            } catch {
-                print(error.localizedDescription)
-            }
+    func removeToken(forKey key: String) throws {
+        do {
+            try tokenManager.removeToken(label: key)
+        } catch {
+            throw(error)
         }
     }
 }

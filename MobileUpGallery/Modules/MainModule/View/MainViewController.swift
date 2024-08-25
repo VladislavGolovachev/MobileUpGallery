@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-
     var presenter: MainViewPresenterProtocol?
     let photoVideoControl = CustomSegmentedControl(firstTitle: "Фото", secondTitle: "Видео")
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -206,6 +206,14 @@ extension MainViewController: MainViewProtocol {
     func reloadItem(at row: Int) {
         let indexPath = IndexPath(row: row, section: 0)
         collectionView.reloadItems(at: [indexPath])
+    }
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Возникла ошибка",
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Закрыть", style: .default))
+        self.present(alert, animated: true)
     }
 }
 

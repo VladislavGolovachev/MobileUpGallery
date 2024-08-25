@@ -133,20 +133,3 @@ extension SecureStorageManager: AccessTokenStorage {
         return nil
     }
 }
-
-enum KeychainError: Error {
-    case itemAlreadyExists
-    case itemNotFound
-    case unknownStatus(String)
-    
-    init(status: OSStatus) {
-        switch status {
-        case errSecDuplicateItem:
-            self = .itemAlreadyExists
-        case errSecItemNotFound:
-            self = .itemNotFound
-        default:
-            self = .unknownStatus(status.description)
-        }
-    }
-}

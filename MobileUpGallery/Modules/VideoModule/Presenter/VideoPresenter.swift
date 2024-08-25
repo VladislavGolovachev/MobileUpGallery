@@ -16,6 +16,7 @@ protocol VideoViewPresenterProtocol: AnyObject {
     func goToPreviousScreen()
     func playerURRequestL() -> URLRequest?
     func playerURL() -> URL?
+    func title() -> String?
 }
 
 final class VideoPresenter: VideoViewPresenterProtocol {
@@ -31,15 +32,17 @@ final class VideoPresenter: VideoViewPresenterProtocol {
     
     func playerURRequestL() -> URLRequest? {
         guard let url = playerURL() else {return nil}
-        print(url.absoluteString)
-        
         return URLRequest(url: url)
     }
     
     func playerURL() -> URL? {
         guard let video = DataManager.shared.video(forKey: videoID) else {return nil}
-        
         return URL(string: video.playerURLString)
+    }
+    
+    func title() -> String? {
+        let title = DataManager.shared.video(forKey: videoID)?.title
+        return title
     }
     
     func goToPreviousScreen() {

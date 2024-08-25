@@ -52,13 +52,13 @@ final class DataManager: DataManagerProtocol {
     }
     
     func savePhoto(_ image: PhotoModel, forKey key: String) {
-        itemQueue.asyncAndWait {
+        itemQueue.async {
             self.cacheManager.addPhoto(image, forKey: key)
         }
     }
     
     func saveVideo(_ video: VideoModel, forKey key: String) {
-        itemQueue.asyncAndWait {
+        itemQueue.async {
             self.cacheManager.addVideo(video, forKey: key)
         }
     }
@@ -72,6 +72,28 @@ final class DataManager: DataManagerProtocol {
         }
         
         return token
+    }
+    
+    func updateToken(_ token: AccessToken, forKey key: String) throws {
+        var varToken: AccessToken?
+        
+        do {
+            varToken = try self.token(forKey: key)
+        } catch {}
+        
+        if let varToken {
+            do {
+                try removeToken(forKey: key)
+            } catch {
+                throw(error)
+            }
+        }
+        
+        do {
+            try saveToken(token, forKey: key)
+        } catch {
+            throw(error)
+        }
     }
     
     func saveToken(_ token: AccessToken, forKey key: String) throws {

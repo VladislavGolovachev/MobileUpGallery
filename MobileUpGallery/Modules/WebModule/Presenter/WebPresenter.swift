@@ -44,7 +44,7 @@ final class WebPresenter: WebViewPresenterProtocol {
                 let token = AccessToken(token: tokenString, creationDate: Date.now)
                 
                 do {
-                    try DataManager.shared.saveToken(token, forKey: AccessToken.key)
+                    try DataManager.shared.updateToken(token, forKey: AccessToken.key)
                 } catch {
                     let message = ErrorHandler().handle(error: error)
                     view?.showAlert(message: message)

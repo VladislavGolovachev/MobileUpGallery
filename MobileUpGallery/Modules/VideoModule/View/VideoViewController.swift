@@ -30,7 +30,7 @@ final class VideoViewController: UIViewController {
 //MARK: Private Functions
 extension VideoViewController {
     private func customizeNavigationBar() {
-        navigationItem.title = "Голубой огонек в MobileUp"
+        navigationItem.title = presenter?.title()
 
         let config = UIImage.SymbolConfiguration(weight: .semibold)
         let backButtonImage = UIImage(systemName: "chevron.left", withConfiguration: config)

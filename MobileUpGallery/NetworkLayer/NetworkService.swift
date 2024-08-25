@@ -24,6 +24,17 @@ extension NetworkService {
     private func request(_ request: VKRequest) -> URLRequest? {
         return request.construct()
     }
+    
+    private func getError(by response: URLResponse?) -> Error? {
+        if let httpResponse = response as? HTTPURLResponse {
+            let status = httpResponse.statusCode
+            let error = ErrorHandler().networkError(byStatusCode: status)
+            if error != .none {
+                return error as Error
+            }
+        }
+        return nil
+    }
 }
 
 //MARK: NetworkServiceProtocol
@@ -37,13 +48,16 @@ extension NetworkService: NetworkServiceProtocol {
         guard let getPhotosRequest = request(.api(.photos, details: details)) else {return}
         
         let task = URLSession.shared.dataTask(with: getPhotosRequest) { data, response, error in
-            
+            if let possibleError = getError(by: response) {
+                completion(.failure(possibleError))
+                return
+            }
             if let error {
                 completion(.failure(error))
                 return
             }
-            guard let data else {return}
             
+            guard let data else {return}
             do {
                 let photoResponse = try JSONDecoder().decode(PhotoResponse.self, from: data)
                 completion(.success(photoResponse))
@@ -60,12 +74,16 @@ extension NetworkService: NetworkServiceProtocol {
         guard let getVideosRequest = request(.api(.videos, details: details)) else {return}
         
         let task = URLSession.shared.dataTask(with: getVideosRequest) { data, response, error in
+            if let possibleError = getError(by: response) {
+                completion(.failure(possibleError))
+                return
+            }
             if let error {
                 completion(.failure(error))
                 return
             }
-            guard let data else {return}
             
+            guard let data else {return}
             do {
                 let videoResponse = try JSONDecoder().decode(VideoResponse.self, from: data)
                 completion(.success(videoResponse))
@@ -81,10 +99,15 @@ extension NetworkService: NetworkServiceProtocol {
         let urlRequest = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            if let possibleError = getError(by: response) {
+                completion(.failure(possibleError))
+                return
+            }
             if let error {
                 completion(.failure(error))
                 return
             }
+            
             if let data {
                 completion(.success(data))
             }

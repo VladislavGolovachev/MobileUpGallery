@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum KeychainError: Error {
-    case itemAlreadyExists
-    case itemNotFound
-    case unknownStatus
+enum KeychainError: String, Error {
+    case itemAlreadyExists = "Не удалось сохранить пароль"
+    case itemNotFound = "Не удалось найти пароль"
+    case unknownStatus = "Неизвестная ошибка, связанная с хранилищем ключей"
     
     init(status: OSStatus) {
         switch status {
@@ -24,6 +24,25 @@ enum KeychainError: Error {
     }
 }
 
-enum NetworkError: Error {
+enum NetworkError: String, Error {
+    case clientError = "Ошибка, связанная с сервером"
+    case none = "Нет ошибки"
+    case serverError = "Ошибка, связанная с клиентом"
+    case notFound = "Не найдено"
     
+    init(value: Int) {
+        switch value {
+        case 400...499:
+            if value == 404 {
+                self = .notFound
+            } else {
+                self = .clientError
+            }
+        case 500...599:
+            self = .serverError
+        default:
+            self = .none
+        }
+    }
 }
+

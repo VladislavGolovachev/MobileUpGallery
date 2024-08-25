@@ -10,26 +10,16 @@ import Foundation
 struct ErrorHandler {
     func handle(error: Error) -> String {
         if let error = error as? KeychainError {
-            return handleKeychainError(error)
+            return error.rawValue
         }
         if let error = error as? NetworkError {
-            return handleNetworkError(error)
+            print("networkerror")
+            return error.rawValue
         }
         return "Неизвестная ошибка"
     }
     
-    private func handleKeychainError(_ error: KeychainError) -> String {
-        switch error {
-        case .itemAlreadyExists:
-            return "Не удалось сохранить пароль"
-        case .itemNotFound:
-            return "Не удалось найти пароль"
-        case .unknownStatus:
-            return "Неизвестная ошибка, связанная с хранилищем ключей"
-        }
-    }
-    
-    private func handleNetworkError(_ error: NetworkError) -> String {
-        
+    func networkError(byStatusCode statusCode: Int) -> NetworkError {
+        return NetworkError(value: statusCode)
     }
 }

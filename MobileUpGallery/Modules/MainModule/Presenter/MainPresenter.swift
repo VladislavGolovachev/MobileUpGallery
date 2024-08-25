@@ -150,7 +150,10 @@ extension MainPresenter {
             case .success(let photoResponse):
                 self?.savePhotos(photoResponse.photos, offset: offset)
             case .failure(let error):
-                print(error.localizedDescription)
+                let message = ErrorHandler().handle(error: error)
+                DispatchQueue.main.async {
+                    self?.view?.showAlert(message: message)
+                }
             }
             self?.isDownloading = false
         }
@@ -172,7 +175,10 @@ extension MainPresenter {
             case .success(let videoResponse):
                 self?.saveVideos(videoResponse.videos, offset: offset)
             case .failure(let error):
-                print(error.localizedDescription)
+                let message = ErrorHandler().handle(error: error)
+                DispatchQueue.main.async {
+                    self?.view?.showAlert(message: message)
+                }
             }
             self?.isDownloading = false
         }
@@ -197,7 +203,10 @@ extension MainPresenter {
                         self?.view?.reloadItem(at: index + offset)
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    let message = ErrorHandler().handle(error: error)
+                    DispatchQueue.main.async {
+                        self?.view?.showAlert(message: message)
+                    }
                 }
             }
         }

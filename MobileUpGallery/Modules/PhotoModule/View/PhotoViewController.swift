@@ -15,6 +15,7 @@ final class PhotoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         imageView.image = presenter?.photo()
+        imageView.contentMode = .scaleAspectFit
         
         customizeNavigationBar()
         view.addSubview(imageView)

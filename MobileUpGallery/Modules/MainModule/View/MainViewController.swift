@@ -154,20 +154,21 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var cell: PhotoCollectionViewCell
         if photoVideoControl.selectedSegment == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photo", for: indexPath)
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photo", for: indexPath)
             as? PhotoCollectionViewCell ?? PhotoCollectionViewCell()
-            if let photo = presenter?.photo(at: indexPath.row) {
-                cell.imageView.image = photo
-            } else {
-                cell.backgroundColor = .systemGray5
-            }
-            return cell
+            
+            cell.imageView.image = presenter?.photo(at: indexPath.row)
+        } else {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Video", for: indexPath)
+            as? VideoCollectionViewCell ?? VideoCollectionViewCell()
+            
+            cell.imageView.image = presenter?.video(at: indexPath.row)
+            (cell as? VideoCollectionViewCell)?.label.text = presenter?.videoTitle(at: indexPath.row)
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Video", for: indexPath)
-        as? VideoCollectionViewCell ?? VideoCollectionViewCell()
-        cell.imageView.image = presenter?.video(at: indexPath.row)
-        cell.label.text = presenter?.videoTitle(at: indexPath.row)
+        cell.imageView.contentMode = .scaleAspectFill
+        cell.imageView.clipsToBounds = true
         cell.backgroundColor = .systemGray5
         
         return cell

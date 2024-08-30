@@ -8,6 +8,9 @@
 import UIKit
 
 protocol CacheManagerProtocol {
+    func emptyPhotoCache()
+    func emptyVideoCache()
+    
     func addPhoto(_ photo: PhotoModel, forKey key: String)
     func photo(forKey key: String) -> PhotoModel?
     func addVideo(_ video: VideoModel, forKey key: String)
@@ -23,6 +26,14 @@ struct CacheManager: CacheManagerProtocol {
         let nsStringKey = NSString(string: key)
         
         photoCache.setObject(object, forKey: nsStringKey)
+    }
+    
+    func emptyPhotoCache() {
+        photoCache.removeAllObjects()
+    }
+    
+    func emptyVideoCache() {
+        videoCache.removeAllObjects()
     }
     
     func photo(forKey key: String) -> PhotoModel? {

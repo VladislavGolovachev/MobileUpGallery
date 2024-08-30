@@ -11,7 +11,7 @@ protocol RouterProtocol {
     init(moduleBuilder: ModuleBuilderProtocol)
     
     func initiateNavigationViewController() -> UIViewController
-    func initiateAuthViewController(_ alertMessage: String?) -> UIViewController
+    func initiateAuthViewController() -> UIViewController
     
     func showWebViewController()
     func goToMainViewController()
@@ -32,8 +32,8 @@ final class Router: RouterProtocol {
         self.moduleBuilder = moduleBuilder
     }
     
-    func initiateAuthViewController(_ alertMessage: String? = nil) -> UIViewController {
-        let authVC = moduleBuilder.createAuthModule(router: self, alertMessage)
+    func initiateAuthViewController() -> UIViewController {
+        let authVC = moduleBuilder.createAuthModule(router: self)
         authViewController = authVC
         
         return authVC

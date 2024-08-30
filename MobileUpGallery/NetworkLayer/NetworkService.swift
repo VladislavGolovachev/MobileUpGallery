@@ -9,8 +9,10 @@ import Foundation
 
 protocol NetworkServiceProtocol {
     func authRequest() -> URLRequest?
-    func getPhotos(details: (accessToken: String, count: String, offset: String), completion: @escaping (Result<PhotoResponse, Error>) -> Void)
-    func getVideos(details: (accessToken: String, count: String, offset: String), completion: @escaping (Result<VideoResponse, Error>) -> Void)
+    func getPhotos(details: (accessToken: String, offset: String), 
+                   completion: @escaping (Result<PhotoResponse, Error>) -> Void)
+    func getVideos(details: (accessToken: String, offset: String), 
+                   completion: @escaping (Result<VideoResponse, Error>) -> Void)
     func downloadPhoto(by urlString: String, completion: @escaping (Result<Data, Error>) -> Void)
 }
 
@@ -43,7 +45,7 @@ extension NetworkService: NetworkServiceProtocol {
         return request(.auth)
     }
     
-    func getPhotos(details: (accessToken: String, count: String, offset: String),
+    func getPhotos(details: (accessToken: String, offset: String),
                    completion: @escaping (Result<PhotoResponse, Error>) -> Void) {
         guard let getPhotosRequest = request(.api(.photos, details: details)) else {return}
         
@@ -62,6 +64,7 @@ extension NetworkService: NetworkServiceProtocol {
                 let photoResponse = try JSONDecoder().decode(PhotoResponse.self, from: data)
                 completion(.success(photoResponse))
             } catch {
+                print(String(data: data, encoding: .utf8))
                 completion(.failure(error))
             }
             
@@ -69,7 +72,7 @@ extension NetworkService: NetworkServiceProtocol {
         task.resume()
     }
     
-    func getVideos(details: (accessToken: String, count: String, offset: String),
+    func getVideos(details: (accessToken: String, offset: String),
                    completion: @escaping (Result<VideoResponse, Error>) -> Void) {
         guard let getVideosRequest = request(.api(.videos, details: details)) else {return}
         

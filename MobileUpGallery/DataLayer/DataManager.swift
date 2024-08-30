@@ -14,8 +14,12 @@ protocol DataManagerProtocol {
     func saveVideo(_ video: VideoModel, forKey key: String)
     
     func token(forKey key: String) throws -> AccessToken?
+    func updateToken(_ token: AccessToken, forKey key: String) throws
     func saveToken(_ token: AccessToken, forKey key: String) throws
     func removeToken(forKey key: String) throws
+    
+    func emptyPhotoCache()
+    func emptyVideoCache()
     
     var photosAmount: Int {get set}
     var videosAmount: Int {get set}
@@ -32,6 +36,16 @@ final class DataManager: DataManagerProtocol {
     private let tokenManager = SecureStorageManager() as AccessTokenStorage
     
     private init() {}
+    
+    func emptyPhotoCache() {
+        cacheManager.emptyPhotoCache()
+        photosAmount = 0
+    }
+    
+    func emptyVideoCache() {
+        cacheManager.emptyVideoCache()
+        videosAmount = 0
+    }
     
     func photo(forKey key: String) -> PhotoModel? {
         var photoInstance: PhotoModel?
@@ -52,13 +66,13 @@ final class DataManager: DataManagerProtocol {
     }
     
     func savePhoto(_ image: PhotoModel, forKey key: String) {
-        itemQueue.async {
+        itemQueue.asyncAndWait {
             self.cacheManager.addPhoto(image, forKey: key)
         }
     }
     
     func saveVideo(_ video: VideoModel, forKey key: String) {
-        itemQueue.async {
+        itemQueue.asyncAndWait {
             self.cacheManager.addVideo(video, forKey: key)
         }
     }
@@ -81,7 +95,7 @@ final class DataManager: DataManagerProtocol {
             varToken = try self.token(forKey: key)
         } catch {}
         
-        if let varToken {
+        if varToken != nil {
             do {
                 try removeToken(forKey: key)
             } catch {

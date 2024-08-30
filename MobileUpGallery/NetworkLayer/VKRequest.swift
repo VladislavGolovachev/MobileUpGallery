@@ -13,7 +13,7 @@ protocol URLRequestConstructer {
 
 enum VKRequest {
     case auth
-    case api(_ method: APIMethod, details: (accessToken: String, count: String, offset: String))
+    case api(_ method: APIMethod, details: (accessToken: String, offset: String))
 }
 
 enum APIMethod {
@@ -38,10 +38,10 @@ extension VKRequest: URLRequestConstructer {
         return urlRequest
     }
     
-    private func apiRequest(_ method: APIMethod, details: (accessToken: String, count: String, offset: String)) -> URLRequest? {
+    private func apiRequest(_ method: APIMethod, details: (accessToken: String, offset: String)) -> URLRequest? {
         guard let url = VKURL.getAPIURL(for: method, with: details) else {return nil}
         let urlRequest = URLRequest(url: url)
         
-        return URLRequest(url: url)
+        return urlRequest
     }
 }

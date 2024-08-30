@@ -61,10 +61,11 @@ extension PhotoViewController {
         let shareSheet = UIActivityViewController(activityItems: [image],
                                                   applicationActivities: nil)
         shareSheet.excludedActivityTypes = [.print, .assignToContact]
-        shareSheet.completionWithItemsHandler = { [weak self] _, success, items, error in
-            if success {
+        shareSheet.completionWithItemsHandler = { [weak self] activityType, success, _, error in
+            if success && activityType == .saveToCameraRoll {
                 self?.showAlert(title: "Сообщение", message: "Фото успешно сохранено")
-            } else {
+            } else 
+            if let error {
                 self?.showAlert(title: "Возникла ошибка", message: "Не удалось сохранить изображение")
             }
         }

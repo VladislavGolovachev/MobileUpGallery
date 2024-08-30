@@ -10,14 +10,12 @@ import Foundation
 protocol KeychainManagerProtocol {
     func findItem(query: [CFString: Any]) throws -> [CFString: Any]?
     func addItem(query: [CFString: Any]) throws
-    func updateItem(query: [CFString: Any], attributes: [CFString: Any]) throws
     func removeItem(query: [CFString: Any]) throws
 }
 
 protocol AccessTokenStorage {
     func addToken(_ accessToken: AccessToken, label: String) throws
     func removeToken(label: String) throws
-    func updateToken(_ accessToken: AccessToken, label: String) throws
     func token(forLabel label: String) throws -> AccessToken?
 }
 
@@ -35,14 +33,6 @@ final class SecureStorageManager: KeychainManagerProtocol {
     
     func addItem(query: [CFString: Any]) throws {
         let status = SecItemAdd(query as CFDictionary, nil)
-        
-        if status != errSecSuccess {
-            throw KeychainError(status: status)
-        }
-    }
-    
-    func updateItem(query: [CFString: Any], attributes: [CFString: Any]) throws {
-        let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         
         if status != errSecSuccess {
             throw KeychainError(status: status)
@@ -84,25 +74,6 @@ extension SecureStorageManager: AccessTokenStorage {
 
         do {
             try removeItem(query: query)
-        } catch {
-            throw(error)
-        }
-    }
-    
-    func updateToken(_ accessToken: AccessToken, label: String) throws {
-        guard let tokenData = accessToken.token.data(using: .utf8) else {return}
-        
-        let query: [CFString: Any] = [
-            kSecClass: kSecClassGenericPassword,
-            kSecAttrLabel: label
-        ]
-        let attributes: [CFString: Any] = [
-            kSecAttrCreationDate: accessToken.creationDate,
-            kSecValueData: tokenData
-        ]
-        
-        do {
-            try updateItem(query: query, attributes: attributes)
         } catch {
             throw(error)
         }

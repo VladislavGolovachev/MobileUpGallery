@@ -9,23 +9,21 @@ import Foundation
 
 struct VideoResponse: Decodable {
     var videos = [RawVideoModel]()
+    let count: Int
     
     init(from decoder: any Decoder) throws {
         let response = try RawVideoResponse(from: decoder).response
+        count = response.count
         
         for item in response.items {
             let image = item.image.max {
                 $0.width * $0.height < $1.width * $1.height
             }
+            guard let image else {return}
             
-            let previewURLString = image?.url ?? ""
-            let title = item.title
-            let playerURLString = item.player
-            
-            let video = RawVideoModel(title: title,
-                                      previewURLString: previewURLString,
-                                      playerURLString: playerURLString)
-            
+            let video = RawVideoModel(title: item.title,
+                                      previewURLString: image.url,
+                                      playerURLString: item.player)
             videos.append(video)
         }
     }
@@ -42,6 +40,7 @@ struct RawVideoResponse: Decodable {
     
     struct Response: Decodable {
         let items: [VideoItem]
+        let count: Int
     }
     struct VideoItem: Decodable {
         let title: String

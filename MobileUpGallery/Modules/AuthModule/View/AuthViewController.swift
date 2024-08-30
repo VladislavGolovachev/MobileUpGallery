@@ -44,13 +44,6 @@ final class AuthViewController: UIViewController {
         
         setupConstraints()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if let result = presenter?.needsToShow(), result.0 {
-            showAlert(message: result.1)
-        }
-    }
 }
 
 //MARK: Private functions

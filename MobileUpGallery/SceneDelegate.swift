@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let token, token.isValid {
             rootVC = router.initiateNavigationViewController()
         } else {
-            rootVC = router.initiateAuthViewController("Авторизация не удалась")
+            rootVC = router.initiateAuthViewController()
         }
         
         window.rootViewController = rootVC

@@ -42,6 +42,7 @@
 		82D238AA2C7762A20062DCA6 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238A92C7762A20062DCA6 /* CustomSegmentedControl.swift */; };
 		82D238AC2C7763050062DCA6 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238AB2C7763050062DCA6 /* WebViewController.swift */; };
 		82D238AE2C77682E0062DCA6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238AD2C77682E0062DCA6 /* MainViewController.swift */; };
+		82D501AC2C80D3AC00C76EF2 /* URLSessionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D501AB2C80D3AC00C76EF2 /* URLSessionExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		82D238A92C7762A20062DCA6 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		82D238AB2C7763050062DCA6 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		82D238AD2C77682E0062DCA6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		82D501AB2C80D3AC00C76EF2 /* URLSessionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -342,6 +344,7 @@
 		82D238862C7609E50062DCA6 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				82D501AA2C80D39200C76EF2 /* Extensions */,
 				82D238872C7609FB0062DCA6 /* CustomClasses */,
 			);
 			path = Other;
@@ -353,6 +356,14 @@
 				82D238842C7605E50062DCA6 /* PaddingLabel.swift */,
 			);
 			path = CustomClasses;
+			sourceTree = "<group>";
+		};
+		82D501AA2C80D39200C76EF2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				82D501AB2C80D3AC00C76EF2 /* URLSessionExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -459,6 +470,7 @@
 				8276461B2C75358A0075C31E /* ModuleBuilder.swift in Sources */,
 				8230A5A12C7A077100C92578 /* PhotoModel.swift in Sources */,
 				82D238AA2C7762A20062DCA6 /* CustomSegmentedControl.swift in Sources */,
+				82D501AC2C80D3AC00C76EF2 /* URLSessionExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

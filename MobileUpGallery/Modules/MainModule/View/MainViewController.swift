@@ -36,13 +36,20 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter?.prefetchPhotos(forIndex: 0)
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(appMovedBackground),
+                       name: UIApplication.willResignActiveNotification, object: nil)
+        nc.addObserver(self, selector: #selector(appMovedForeground),
+                       name: UIApplication.willEnterForegroundNotification, object: nil)
         
+        presenter?.prefetchPhotos(for: 0)
         view.backgroundColor = .white
         customizeNavigationBar()
         
-        photoVideoControl.firstItem.addTarget(self, action: #selector(firstSegmentTappedAction(_:)), for: .touchDown)
-        photoVideoControl.secondItem.addTarget(self, action: #selector(secondSegmentTappedAction(_:)), for: .touchDown)
+        photoVideoControl.firstItem.addTarget(self, 
+                                              action: #selector(firstSegmentTappedAction(_:)), for: .touchDown)
+        photoVideoControl.secondItem.addTarget(self, 
+                                               action: #selector(secondSegmentTappedAction(_:)), for: .touchDown)
         
         view.addSubview(photoVideoControl)
         view.addSubview(collectionView)
@@ -94,15 +101,41 @@ extension MainViewController {
 
 //MARK: Actions
 extension MainViewController {
+    @objc func appMovedBackground() {
+        presenter?.stopDownloading()
+        collectionView.contentOffset = CGPointZero
+        presenter?.emptyPhotoCache()
+        presenter?.emptyVideoCache()
+    }
+    
+    @objc func appMovedForeground() {
+        if photoVideoControl.selectedSegment == 0 {
+            presenter?.prefetchPhotos(for: 0)
+        } else {
+            presenter?.prefetchVideos(for: 0)
+        }
+    }
+    
     @objc func firstSegmentTappedAction(_ sender: UIButton) {
-        photoVideoControl.selectSegment(at: 0)
+        presenter?.stopDownloading()
+        
+        collectionView.contentOffset = CGPointZero
+        presenter?.emptyVideoCache()
+        presenter?.prefetchPhotos(for: 0)
+        
         collectionView.reloadData()
+        photoVideoControl.selectSegment(at: 0)
     }
     
     @objc func secondSegmentTappedAction(_ sender: UIButton) {
-        photoVideoControl.selectSegment(at: 1)
-        collectionView.reloadData()
+        presenter?.stopDownloading()
+        
+        collectionView.contentOffset = CGPointZero
+        presenter?.emptyPhotoCache()
         presenter?.prefetchVideos(for: 0)
+        
+        collectionView.reloadData()
+        photoVideoControl.selectSegment(at: 1)
     }
     
     @objc func exitButtonAction(_ sender: UIButton) {
@@ -114,6 +147,7 @@ extension MainViewController {
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if photoVideoControl.selectedSegment == 0 {
+            print(presenter?.photosAmount)
             return presenter?.photosAmount ?? 0
         }
         return presenter?.videosAmount ?? 0
@@ -125,6 +159,8 @@ extension MainViewController: UICollectionViewDataSource {
             as? PhotoCollectionViewCell ?? PhotoCollectionViewCell()
             if let photo = presenter?.photo(at: indexPath.row) {
                 cell.imageView.image = photo
+            } else {
+                cell.backgroundColor = .systemGray5
             }
             return cell
         }
@@ -132,6 +168,7 @@ extension MainViewController: UICollectionViewDataSource {
         as? VideoCollectionViewCell ?? VideoCollectionViewCell()
         cell.imageView.image = presenter?.video(at: indexPath.row)
         cell.label.text = presenter?.videoTitle(at: indexPath.row)
+        cell.backgroundColor = .systemGray5
         
         return cell
     }
@@ -141,6 +178,10 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
+        if let cell = cell as? PhotoCollectionViewCell, cell.imageView.image == nil {
+            return
+        }
+        
         cell?.alpha = 0.4
         UIView.animate(withDuration: 0.5) {
             cell?.alpha = 1
@@ -156,12 +197,16 @@ extension MainViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if photoVideoControl.selectedSegment == 0 {
-            presenter?.prefetchPhotos(forIndex: indexPath.row)
-        } else {
-            presenter?.prefetchVideos(for: indexPath.row)
+        let index = collectionView.numberOfItems(inSection: 0)
+        if index - 1 != indexPath.row {
+            return
         }
         
+        if photoVideoControl.selectedSegment == 0 {
+            presenter?.prefetchPhotos(for: index)
+        } else {
+            presenter?.prefetchVideos(for: index)
+        }
     }
 }
 
@@ -190,8 +235,12 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
         guard let maxRow = maxIndexPath?.row else {return}
         
         let index = collectionView.numberOfItems(inSection: 0)
+        if index - 1 != maxRow {
+            return
+        }
+        
         if photoVideoControl.selectedSegment == 0 {
-            presenter?.prefetchPhotos(forIndex: index)
+            presenter?.prefetchPhotos(for: index)
         } else {
             presenter?.prefetchVideos(for: index)
         }
@@ -201,12 +250,16 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
 //MARK: MainViewProtocol
 extension MainViewController: MainViewProtocol {
     func reloadList() {
+        print("reload begins")
         collectionView.reloadData()
+        print("reload finished")
     }
     
     func reloadItem(at row: Int) {
+        print("reloadItem at \(row) begins")
         let indexPath = IndexPath(row: row, section: 0)
         collectionView.reloadItems(at: [indexPath])
+        print("reloadItem at \(row) finished")
     }
     
     func showAlert(message: String) {

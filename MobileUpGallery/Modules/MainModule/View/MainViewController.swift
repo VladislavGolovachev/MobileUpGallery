@@ -292,7 +292,7 @@ extension MainViewController {
         }
         enum Color {
             static let background = UIColor.white
-            static let cellBackground = UIColor.systemGray5
+            static let cellBackground = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 0.7)
             static let text = UIColor.black
         }
         enum Constraints {

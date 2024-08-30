@@ -63,10 +63,14 @@ extension CustomSegmentedControl {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.padding),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.padding),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Constants.padding),
-            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: Constants.padding)
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, 
+                                               constant: Constants.padding),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor,
+                                                constant: -Constants.padding),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, 
+                                              constant: -Constants.padding),
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, 
+                                           constant: Constants.padding)
         ])
     }
     

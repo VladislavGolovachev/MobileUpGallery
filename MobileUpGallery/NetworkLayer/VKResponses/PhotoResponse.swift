@@ -21,7 +21,6 @@ struct PhotoResponse: Decodable {
             let urlString = photoSize?.url ?? ""
             
             let photo = RawPhotoModel(unixTime: date, urlString: urlString)
-            
             photos.append(photo)
         }
     }

@@ -13,7 +13,8 @@ class PaddingLabel: UILabel {
     private var bottomInset: CGFloat = 0
     private var rightInset: CGFloat = 0
     
-    convenience init(topInset: CGFloat, leftInset: CGFloat, bottomInset: CGFloat, rightInset: CGFloat) {
+    convenience init(topInset: CGFloat, leftInset: CGFloat, 
+                     bottomInset: CGFloat, rightInset: CGFloat) {
         self.init()
         self.topInset = topInset
         self.leftInset = leftInset
@@ -22,7 +23,8 @@ class PaddingLabel: UILabel {
     }
     
     override func drawText(in rect: CGRect) {
-        let insets = UIEdgeInsets(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
+        let insets = UIEdgeInsets(top: topInset, left: leftInset, 
+                                  bottom: bottomInset, right: rightInset)
         super.drawText(in: rect.inset(by: insets))
     }
     

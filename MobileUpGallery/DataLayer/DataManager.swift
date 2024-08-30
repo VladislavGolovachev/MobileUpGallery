@@ -26,7 +26,8 @@ protocol DataManagerProtocol {
 }
 
 final class DataManager: DataManagerProtocol {
-    let itemQueue = DispatchQueue(label: "vladislav-golovachev-itemQueue", qos: .utility, attributes: .concurrent)
+    let itemQueue = DispatchQueue(label: "vladislav-golovachev-itemQueue", 
+                                  qos: .utility, attributes: .concurrent)
     
     var photosAmount = 0
     var videosAmount = 0

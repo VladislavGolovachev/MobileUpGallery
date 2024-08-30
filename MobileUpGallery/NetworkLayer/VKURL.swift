@@ -37,7 +37,8 @@ struct VKURL {
         return urlComponents.url
     }
     
-    static func getAPIURL(for method: APIMethod, with details: (accessToken: String, offset: String)) -> URL? {
+    static func getAPIURL(for method: APIMethod, 
+                          with details: (accessToken: String, offset: String)) -> URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"

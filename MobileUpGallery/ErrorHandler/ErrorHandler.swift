@@ -9,17 +9,13 @@ import Foundation
 
 struct ErrorHandler {
     func handle(error: Error) -> String {
-        print(error as NSError)
         if let error = error as? KeychainError {
-            print("KeychainError")
             return error.rawValue
         }
         if let error = error as? VKError {
-            print("VKError")
             return error.rawValue
         }
         if let error = error as? NetworkError {
-            print("NetworkError")
             return error.rawValue
         }
         return "Неизвестная ошибка"

@@ -160,7 +160,8 @@ extension MainViewController: UICollectionViewDataSource {
         return presenter?.videosAmount ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, 
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: PhotoCollectionViewCell
         if photoVideoControl.selectedSegment == 0 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.ReuseIdentifier.photo,
@@ -206,7 +207,8 @@ extension MainViewController: UICollectionViewDelegate {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, 
+                        willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let index = collectionView.numberOfItems(inSection: 0)
         if index - 1 != indexPath.row {
             return
@@ -260,16 +262,12 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
 //MARK: MainViewProtocol
 extension MainViewController: MainViewProtocol {
     func reloadList() {
-        print("reload begins")
         collectionView.reloadData()
-        print("reload finished")
     }
     
     func reloadItem(at row: Int) {
-        print("reloadItem at \(row) begins")
         let indexPath = IndexPath(row: row, section: 0)
         collectionView.reloadItems(at: [indexPath])
-        print("reloadItem at \(row) finished")
     }
     
     func showAlert(message: String) {

@@ -12,10 +12,13 @@ final class AuthViewController: UIViewController {
     var presenter: AuthViewPresenterProtocol?
     
     let appNameLabel: UILabel = {
-        let label = PaddingLabel(topInset: 10, leftInset: 24, bottomInset: 10, rightInset: 24)
+        let label = PaddingLabel(topInset: Constants.Padding.top,
+                                 leftInset: Constants.Padding.left,
+                                 bottomInset: Constants.Padding.bottom,
+                                 rightInset: Constants.Padding.right)
         label.text = "Mobile Up\nGallery"
         label.textColor = .black
-        label.font = .systemFont(ofSize: 44, weight: .bold)
+        label.font = Constants.Font.label
         label.numberOfLines = 2
         
         return label
@@ -28,7 +31,7 @@ final class AuthViewController: UIViewController {
         button.setTitle("Вход через VK", for: .normal)
         button.setTitleColor(.white, for: .normal)
         if let label = button.titleLabel {
-            label.font = .systemFont(ofSize: 15, weight: .medium)
+            label.font = Constants.Font.button
         }
         button.addTarget(self, action: #selector(authButtonAction(_:)), for: .touchUpInside)
         
@@ -54,14 +57,18 @@ extension AuthViewController {
         appNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            appNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
+            appNameLabel.topAnchor.constraint(equalTo: view.topAnchor,
+                                              constant: Constants.Constraints.Label.topAnchorConstant),
             appNameLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             appNameLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-            authButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -8),
-            authButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            authButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            authButton.heightAnchor.constraint(equalToConstant: 52)
+            authButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor,
+                                               constant: Constants.Constraints.Button.bottomAnchorConstant),
+            authButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, 
+                                                constant: Constants.Constraints.Button.leadingAnchorConstant),
+            authButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,
+                                                 constant: Constants.Constraints.Button.trailingAnchorConstant),
+            authButton.heightAnchor.constraint(equalToConstant: Constants.Constraints.Button.heightAnchorConstant)
         ])
     }
     
@@ -84,4 +91,31 @@ extension AuthViewController {
 //MARK: AuthViewProtocol
 extension AuthViewController: AuthViewProtocol {
     
+}
+
+//MARK: ViewConstants
+extension AuthViewController {
+    enum Constants {
+        enum Padding {
+            static let left = 24.0
+            static let right = 24.0
+            static let bottom = 10.0
+            static let top = 10.0
+        }
+        enum Constraints {
+            enum Label {
+                static let topAnchorConstant = 160.0
+            }
+            enum Button {
+                static let bottomAnchorConstant = -8.0
+                static let heightAnchorConstant = 52.0
+                static let leadingAnchorConstant = 16.0
+                static let trailingAnchorConstant = -16.0
+            }
+        }
+        enum Font {
+            static let label = UIFont.systemFont(ofSize: 44, weight: .bold)
+            static let button = UIFont.systemFont(ofSize: 15, weight: .medium)
+        }
+    }
 }

@@ -14,8 +14,9 @@ final class PhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        imageView.image = presenter?.photo()
+        
         imageView.contentMode = .scaleAspectFit
+        imageView.image = presenter?.photo()
         
         customizeNavigationBar()
         view.addSubview(imageView)
@@ -31,8 +32,8 @@ extension PhotoViewController {
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            imageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
@@ -66,7 +67,7 @@ extension PhotoViewController {
             if success && activityType == .saveToCameraRoll {
                 self?.showAlert(title: "Сообщение", message: "Фото успешно сохранено")
             } else 
-            if let error {
+            if error != nil {
                 self?.showAlert(title: "Возникла ошибка", message: "Не удалось сохранить изображение")
             }
         }

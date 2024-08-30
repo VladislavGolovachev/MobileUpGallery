@@ -147,7 +147,6 @@ extension MainViewController {
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if photoVideoControl.selectedSegment == 0 {
-            print(presenter?.photosAmount)
             return presenter?.photosAmount ?? 0
         }
         return presenter?.videosAmount ?? 0

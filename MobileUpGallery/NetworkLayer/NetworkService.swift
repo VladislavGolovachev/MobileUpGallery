@@ -54,7 +54,7 @@ extension NetworkService: NetworkServiceProtocol {
                 completion(.failure(possibleError))
                 return
             }
-            if let error {
+            if let error, let urlError = (error as? URLError), urlError.errorCode != -999 {
                 completion(.failure(error))
                 return
             }
@@ -83,7 +83,7 @@ extension NetworkService: NetworkServiceProtocol {
                 completion(.failure(possibleError))
                 return
             }
-            if let error {
+            if let error, let urlError = (error as? URLError), urlError.errorCode != -999 {
                 completion(.failure(error))
                 return
             }
@@ -112,7 +112,7 @@ extension NetworkService: NetworkServiceProtocol {
                 completion(.failure(possibleError))
                 return
             }
-            if let error {
+            if let error, let urlError = (error as? URLError), urlError.errorCode != -999 {
                 completion(.failure(error))
                 return
             }

@@ -53,7 +53,7 @@ final class VideoCollectionViewCell: PhotoCollectionViewCell {
     }
 }
 
-//MARK: ViewConstants
+//MARK: Constants
 extension VideoCollectionViewCell {
     enum Constants {
         enum Constraints {

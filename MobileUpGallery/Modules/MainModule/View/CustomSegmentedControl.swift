@@ -121,7 +121,7 @@ extension CustomSegmentedControl: SegmentedControlFeatures {
     }
 }
 
-//MARK: ViewConstants
+//MARK: Constants
 extension CustomSegmentedControl {
     enum Constants {
         static let padding = 2.0

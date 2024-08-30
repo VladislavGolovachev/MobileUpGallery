@@ -14,8 +14,8 @@ final class VideoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        webView.backgroundColor = .white
+        view.backgroundColor = Constants.Color.background
+        webView.backgroundColor = Constants.Color.background
         
         if let urlRequest = presenter?.playerURRequestL() {
             webView.load(urlRequest)
@@ -43,8 +43,8 @@ extension VideoViewController {
                                                             style: .done,
                                                             target: self,
                                                            action: #selector(backButtonAction(_:)))
-        navigationItem.leftBarButtonItem?.tintColor = .black
-        navigationItem.rightBarButtonItem?.tintColor = .black
+        navigationItem.leftBarButtonItem?.tintColor = Constants.Color.text
+        navigationItem.rightBarButtonItem?.tintColor = Constants.Color.text
     }
     
     private func setupConstraints() {
@@ -78,4 +78,14 @@ extension VideoViewController {
 
 extension VideoViewController: VideoViewProtocol {
     
+}
+
+//MARK: Constants
+extension VideoViewController {
+    enum Constants {
+        enum Color {
+            static let text = UIColor.black
+            static let background = UIColor.white
+        }
+    }
 }

@@ -281,6 +281,7 @@ extension MainViewController: MainViewProtocol {
     }
 }
 
+//MARK: Constants
 extension MainViewController {
     enum Constants {
         enum CollectionView {

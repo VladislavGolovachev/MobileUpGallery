@@ -93,7 +93,7 @@ extension AuthViewController: AuthViewProtocol {
     
 }
 
-//MARK: ViewConstants
+//MARK: Constants
 extension AuthViewController {
     enum Constants {
         enum Padding {

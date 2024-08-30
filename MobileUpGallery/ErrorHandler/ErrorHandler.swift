@@ -12,8 +12,10 @@ struct ErrorHandler {
         if let error = error as? KeychainError {
             return error.rawValue
         }
+        if let error = error as? VKError {
+            return error.rawValue
+        }
         if let error = error as? NetworkError {
-            print("networkerror")
             return error.rawValue
         }
         return "Неизвестная ошибка"
@@ -21,5 +23,9 @@ struct ErrorHandler {
     
     func networkError(byStatusCode statusCode: Int) -> NetworkError {
         return NetworkError(value: statusCode)
+    }
+    
+    func vkError(byResponseCode responseCode: Int) -> VKError {
+        return VKError(responseCode: responseCode)
     }
 }

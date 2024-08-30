@@ -43,6 +43,7 @@
 		82D238AC2C7763050062DCA6 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238AB2C7763050062DCA6 /* WebViewController.swift */; };
 		82D238AE2C77682E0062DCA6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D238AD2C77682E0062DCA6 /* MainViewController.swift */; };
 		82D501AC2C80D3AC00C76EF2 /* URLSessionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D501AB2C80D3AC00C76EF2 /* URLSessionExtension.swift */; };
+		82D501AE2C81B32900C76EF2 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D501AD2C81B32900C76EF2 /* ErrorResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		82D238AB2C7763050062DCA6 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		82D238AD2C77682E0062DCA6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		82D501AB2C80D3AC00C76EF2 /* URLSessionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtension.swift; sourceTree = "<group>"; };
+		82D501AD2C81B32900C76EF2 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 			children = (
 				8230A5A82C7A2A5F00C92578 /* PhotoResponse.swift */,
 				8230A5AA2C7A2E0D00C92578 /* VideoResponse.swift */,
+				82D501AD2C81B32900C76EF2 /* ErrorResponse.swift */,
 			);
 			path = VKResponses;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				827646192C752DF20075C31E /* Router.swift in Sources */,
 				827646172C7528F30075C31E /* VideoPresenter.swift in Sources */,
 				82C9A1DF2C749DA400D59A8E /* AuthViewController.swift in Sources */,
+				82D501AE2C81B32900C76EF2 /* ErrorResponse.swift in Sources */,
 				8230A5AB2C7A2E0D00C92578 /* VideoResponse.swift in Sources */,
 				8289F9A62C78AB6F00A6993E /* NetworkService.swift in Sources */,
 				827646112C7528D50075C31E /* AuthPresenter.swift in Sources */,

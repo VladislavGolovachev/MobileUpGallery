@@ -46,3 +46,34 @@ enum NetworkError: String, Error {
     }
 }
 
+enum VKError: String, Error {
+    case unknownError = "Неизвестная ошибка"
+    case appIsOff = "Приложение выключено"
+    case authHasBeenFailed = "Авторизация пользователя не удалась"
+    case tooManyRequests = "Слишком много запросов в секунду"
+    case innerServerError = "Произошла внутренняя ошибка сервера"
+    case accessDenied = "Доступ запрещен"
+    case accessKeyOfGroupIsInvalid = "Ключ доступа сообщества недействителен"
+    case accessKeyOfAppIsInvalid = "Ключ доступа приложения недействителен"
+    
+    init(responseCode: Int) {
+        switch responseCode {
+        case 2:
+            self = .appIsOff
+        case 5:
+            self = .authHasBeenFailed
+        case 6:
+            self = .tooManyRequests
+        case 10:
+            self = .innerServerError
+        case 15:
+            self = .accessDenied
+        case 27:
+            self = .accessKeyOfGroupIsInvalid
+        case 28:
+            self = .accessKeyOfAppIsInvalid
+        default:
+            self = .unknownError
+        }
+    }
+}

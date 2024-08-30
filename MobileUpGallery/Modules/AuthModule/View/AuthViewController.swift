@@ -58,17 +58,17 @@ extension AuthViewController {
         
         NSLayoutConstraint.activate([
             appNameLabel.topAnchor.constraint(equalTo: view.topAnchor,
-                                              constant: Constants.Constraints.Label.topAnchorConstant),
+                                              constant: Constants.Constraints.Label.topConstant),
             appNameLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             appNameLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
             authButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor,
-                                               constant: Constants.Constraints.Button.bottomAnchorConstant),
+                                               constant: Constants.Constraints.Button.bottomConstant),
             authButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, 
-                                                constant: Constants.Constraints.Button.leadingAnchorConstant),
+                                                constant: Constants.Constraints.Button.leadingConstant),
             authButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,
-                                                 constant: Constants.Constraints.Button.trailingAnchorConstant),
-            authButton.heightAnchor.constraint(equalToConstant: Constants.Constraints.Button.heightAnchorConstant)
+                                                 constant: Constants.Constraints.Button.trailingConstant),
+            authButton.heightAnchor.constraint(equalToConstant: Constants.Constraints.Button.heightConstant)
         ])
     }
     
@@ -104,13 +104,13 @@ extension AuthViewController {
         }
         enum Constraints {
             enum Label {
-                static let topAnchorConstant = 160.0
+                static let topConstant = 160.0
             }
             enum Button {
-                static let bottomAnchorConstant = -8.0
-                static let heightAnchorConstant = 52.0
-                static let leadingAnchorConstant = 16.0
-                static let trailingAnchorConstant = -16.0
+                static let bottomConstant = -8.0
+                static let heightConstant = 52.0
+                static let leadingConstant = 16.0
+                static let trailingConstant = -16.0
             }
         }
         enum Font {

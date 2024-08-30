@@ -29,19 +29,19 @@ final class CustomSegmentedControl: UIView {
     }()
     private lazy var firstButton: UIButton = {
         let button = UIButton(type: .custom, primaryAction: nil)
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
-        button.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.04).cgColor
+        button.backgroundColor = Constants.Color.background
+        button.setTitleColor(Constants.Color.text, for: .normal)
+        button.layer.borderColor = Constants.Color.border
         setShadow(to: button)
         
         return button
     }()
     private lazy var secondButton: UIButton = {
         let button = UIButton(type: .custom, primaryAction: nil)
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 13, weight: .medium)
-        button.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.04).cgColor
+        button.backgroundColor = Constants.Color.background
+        button.setTitleColor(Constants.Color.text, for: .normal)
+        button.titleLabel?.font = Constants.Font.notSelected
+        button.layer.borderColor = Constants.Color.border
         
         return button
     }()
@@ -63,27 +63,27 @@ extension CustomSegmentedControl {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 2),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -2),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -2),
-            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 2)
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.padding),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.padding),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Constants.padding),
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: Constants.padding)
         ])
     }
     
     private func setShadow(to button: UIButton) {
-        button.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
+        button.titleLabel?.font = Constants.Font.selected
 
         button.layer.masksToBounds = false
         button.layer.cornerRadius = 7
         button.layer.borderWidth = 0.5
-        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-        button.layer.shadowOpacity = 0.12
-        button.layer.shadowRadius = 8
-        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = Constants.Shadow.offset
+        button.layer.shadowOpacity = Constants.Shadow.opacity
+        button.layer.shadowRadius = Constants.Shadow.radius
+        button.layer.shadowColor = Constants.Color.shadow
     }
     
     private func resetShadow(to button: UIButton) {
-        button.titleLabel?.font = .systemFont(ofSize: 13, weight: .medium)
+        button.titleLabel?.font = Constants.Font.notSelected
         button.layer.borderWidth = 0
         button.layer.shadowOpacity = 0
     }
@@ -119,4 +119,27 @@ extension CustomSegmentedControl: SegmentedControlFeatures {
             }
         }
     }
+}
+
+//MARK: ViewConstants
+extension CustomSegmentedControl {
+    enum Constants {
+        static let padding = 2.0
+        enum Font {
+            static let selected = UIFont.systemFont(ofSize: 13, weight: .semibold)
+            static let notSelected = UIFont.systemFont(ofSize: 13, weight: .medium)
+        }
+        enum Color {
+            static let border = UIColor(red: 0, green: 0, blue: 0, alpha: 0.04).cgColor
+            static let background = UIColor.white
+            static let text = UIColor.black
+            static let shadow = UIColor.black.cgColor
+        }
+        enum Shadow {
+            static let offset = CGSize(width: 0, height: 3)
+            static let opacity: Float = 0.12
+            static let radius = 8.0
+        }
+    }
+    
 }

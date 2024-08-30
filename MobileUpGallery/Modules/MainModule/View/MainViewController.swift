@@ -14,19 +14,21 @@ final class MainViewController: UIViewController {
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 4
-        layout.minimumLineSpacing = 4
+        layout.minimumInteritemSpacing = Constants.CollectionView.spacing
+        layout.minimumLineSpacing = Constants.CollectionView.spacing
         
         let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = Constants.Color.background
         collectionView.showsHorizontalScrollIndicator = false
         
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.prefetchDataSource = self
         
-        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "Photo")
-        collectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: "Video")
+        collectionView.register(PhotoCollectionViewCell.self, 
+                                forCellWithReuseIdentifier: Constants.ReuseIdentifier.photo)
+        collectionView.register(VideoCollectionViewCell.self,
+                                forCellWithReuseIdentifier: Constants.ReuseIdentifier.video)
         
         return collectionView
     }()
@@ -43,7 +45,7 @@ final class MainViewController: UIViewController {
                        name: UIApplication.willEnterForegroundNotification, object: nil)
         
         presenter?.prefetchPhotos(for: 0)
-        view.backgroundColor = .white
+        view.backgroundColor = Constants.Color.background
         customizeNavigationBar()
         
         photoVideoControl.firstItem.addTarget(self, 
@@ -58,11 +60,12 @@ final class MainViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         if photoCellSize == nil {
-            let width = Int((view.bounds.width - 4) / 2.0)
+            let width = Int((view.bounds.width - Constants.CollectionView.spacing) / 2.0)
             photoCellSize = CGSize(width: width, height: width)
         }
         if videoCellSize == nil {
-            videoCellSize = CGSize(width: view.bounds.width, height: 210)
+            videoCellSize = CGSize(width: view.bounds.width,
+                                   height: Constants.CollectionView.videoCellHeight)
         }
     }
 }
@@ -75,27 +78,32 @@ extension MainViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            photoVideoControl.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 8),
-            photoVideoControl.heightAnchor.constraint(equalToConstant: 32),
-            photoVideoControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            photoVideoControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            photoVideoControl.topAnchor.constraint(equalTo: safeArea.topAnchor,
+                                                   constant: Constants.Constraints.SegmentedControl.topConstant),
+            photoVideoControl.heightAnchor.constraint(equalToConstant: Constants.Constraints.SegmentedControl.heightConstant),
+            photoVideoControl.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                       constant: Constants.Constraints.SegmentedControl.leadingConstant),
+            photoVideoControl.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                        constant: Constants.Constraints.SegmentedControl.trailingConstant),
             
             collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.topAnchor.constraint(equalTo: photoVideoControl.bottomAnchor, constant: 8)
+            collectionView.topAnchor.constraint(equalTo: photoVideoControl.bottomAnchor, 
+                                                constant: Constants.Constraints.CollectionView.topConstant)
         ])
     }
     
     private func customizeNavigationBar() {
         navigationItem.title = "MobileUp Gallery"
-        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 17, weight: .semibold),
-                                                                   .foregroundColor: UIColor.black]
+        navigationController?.navigationBar.titleTextAttributes = [.font: Constants.Font.navigationTitle,
+                                                                   .foregroundColor: Constants.Color.text]
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выход", style: .plain,
                                                             target: self, action: #selector(exitButtonAction(_:)))
-        navigationItem.rightBarButtonItem?.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .normal)
-        navigationItem.rightBarButtonItem?.tintColor = .black
+        navigationItem.rightBarButtonItem?.setTitleTextAttributes([.font: Constants.Font.backBarButton],
+                                                                  for: .normal)
+        navigationItem.rightBarButtonItem?.tintColor = Constants.Color.text
     }
 }
 
@@ -155,12 +163,14 @@ extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: PhotoCollectionViewCell
         if photoVideoControl.selectedSegment == 0 {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photo", for: indexPath)
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.ReuseIdentifier.photo,
+                                                      for: indexPath)
             as? PhotoCollectionViewCell ?? PhotoCollectionViewCell()
             
             cell.imageView.image = presenter?.photo(at: indexPath.row)
         } else {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Video", for: indexPath)
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.ReuseIdentifier.video,
+                                                      for: indexPath)
             as? VideoCollectionViewCell ?? VideoCollectionViewCell()
             
             cell.imageView.image = presenter?.video(at: indexPath.row)
@@ -168,7 +178,7 @@ extension MainViewController: UICollectionViewDataSource {
         }
         cell.imageView.contentMode = .scaleAspectFill
         cell.imageView.clipsToBounds = true
-        cell.backgroundColor = .systemGray5
+        cell.backgroundColor = Constants.Color.cellBackground
         
         return cell
     }
@@ -271,3 +281,35 @@ extension MainViewController: MainViewProtocol {
     }
 }
 
+extension MainViewController {
+    enum Constants {
+        enum CollectionView {
+            static let spacing = 4.0
+            static let videoCellHeight = 210.0
+        }
+        enum Font {
+            static let navigationTitle = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            static let backBarButton = UIFont.systemFont(ofSize: 17, weight: .regular)
+        }
+        enum Color {
+            static let background = UIColor.white
+            static let cellBackground = UIColor.systemGray5
+            static let text = UIColor.black
+        }
+        enum Constraints {
+            enum SegmentedControl {
+                static let topConstant = 8.0
+                static let heightConstant = 32.0
+                static let leadingConstant = 16.0
+                static let trailingConstant = -16.0
+            }
+            enum CollectionView {
+                static let topConstant = 8.0
+            }
+        }
+        enum ReuseIdentifier {
+            static let photo = "Photo"
+            static let video = "Video"
+        }
+    }
+}

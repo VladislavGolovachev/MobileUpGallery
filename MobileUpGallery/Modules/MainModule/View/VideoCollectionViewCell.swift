@@ -38,14 +38,30 @@ final class VideoCollectionViewCell: PhotoCollectionViewCell {
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         
         NSLayoutConstraint.activate([
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            label.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 131),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, 
+                                          constant: Constants.Constraints.Label.bottomConstant),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, 
+                                            constant: Constants.Constraints.Label.trailingConstant),
+            label.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, 
+                                           constant: Constants.Constraints.Label.leadingConstant),
             label.topAnchor.constraint(greaterThanOrEqualTo: topAnchor)
         ])
     }
     
     override func prepareForReuse() {
         imageView.image = nil
+    }
+}
+
+//MARK: ViewConstants
+extension VideoCollectionViewCell {
+    enum Constants {
+        enum Constraints {
+            enum Label {
+                static let bottomConstant = -16.0
+                static let trailingConstant = -16.0
+                static let leadingConstant = 131.0
+            }
+        }
     }
 }
